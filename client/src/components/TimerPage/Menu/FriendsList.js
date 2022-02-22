@@ -4,30 +4,19 @@ import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import axios from "axios";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography"
+
+import {addFriend, getUser} from "../../../services/ApiCalls";
 
 const AddFriend = ({friends, setFriends, numFriends, setNumFriends}) => {
-    const profile = JSON.parse(localStorage.getItem('profile'))
-    const userId = profile.result._id
-
     const [userName, setUserName] = useState("")
     const handleChange = (e) => {
         setUserName(e.target.value)
     }
     const handleSubmit = (e) => {
         if (e.keyCode === 13){
-            const newFriendObj = {
-                user_id: userId,
-                friend_user_name: userName
-            }
-            setFriends(friends.concat())
-            axios.post(`http://localhost:5000/api/v1/users/friends`, newFriendObj)
+
+            addFriend(userName)
                 .then(res => {
                     setFriends(friends.concat(res.data.friend))
                     setNumFriends(numFriends + 1)
@@ -101,8 +90,6 @@ const FriendsList = () => {
     const [friends, setFriends] = useState([]);
     const [numFriends, setNumFriends] = useState(0);
     const [isLoading, setLoading] = useState(true);
-    const profile = JSON.parse(localStorage.getItem('profile'))
-    const userId = profile.result._id
 
     const handleClickOpen = () => {
         setOpen(true)
@@ -113,13 +100,14 @@ const FriendsList = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/users/friends/?userId=${userId}`)
+        getUser
             .then(res => {
                 setFriends(res.data.friends)
                 setNumFriends(res.data.num_friends)
                 setLoading(false);
             })
     }, [])
+
     return(
         <Box>
             <IconButton onClick={handleClickOpen}>

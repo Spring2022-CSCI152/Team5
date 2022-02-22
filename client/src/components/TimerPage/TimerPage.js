@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
+import {Button, Box, ButtonGroup} from '@material-ui/core';
+import Stack from '@mui/material/Stack'
 import LinearProgress from '@mui/material/LinearProgress';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import ButtonGroup from '@mui/material/ButtonGroup';
+
 import axios from 'axios';
+import {getUser} from "../../services/ApiCalls";
 
 import Timer from './TimerDisplay/Timer'
 import CharacterDisplay from './TimerDisplay/CharacterDisplay'
@@ -15,10 +15,10 @@ import TimeMath from '../../services/TimeMath'
 import TimerAdjust from '../TimerPage/Menu/TimerAdjust'
 import FriendsList from '../TimerPage/Menu/FriendsList'
 import ItemShop from '../TimerPage/Menu/ItemShop'
+import ApiCalls from "../../services/ApiCalls";
 
 function TimerPage() {
-    const profile = JSON.parse(localStorage.getItem('profile'))
-    const userId = profile.result._id
+
     const [ pomodoro , setPomodoro ] = useState(25)
     const [ shortBreak , setShortBreak ] = useState(5)
     const [ longBreak , setLongBreak ] = useState(20)
@@ -49,21 +49,18 @@ function TimerPage() {
         }
 
         let updatedCharacter = {
-            user_id: userId,
             current_xp: updatedXp,
             gold: updatedGold,
             level: updatedLevel,
             xp_to_next_level: updatedReqExp
         }
 
-        console.log(updatedXp)
         setCharacter({...character, stats: {...character.stats, gold: updatedGold, current_xp: updatedXp, level: updatedLevel, xp_to_next_level: updatedReqExp}})
         // error when trying to post a 0 to updatedXP stat
         axios.put(`http://localhost:5000/api/v1/users/character`, updatedCharacter)
             .then(r => console.log(r))
             .catch(e => console.log(e.response))
     }
-
     const handleModeChange = () => {
       if (timerMode === 'Questing' && pomosCompleted === 3){
           setTimerMode('Long Camp');
@@ -82,11 +79,10 @@ function TimerPage() {
 
       }
     }
-
     const timeoutID = 0;
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/users/character?userId=${userId}`)
+        getUser
             .then(
                 response => {
                     setCharacter(response.data)

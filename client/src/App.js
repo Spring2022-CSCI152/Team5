@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import AddPost from "./components/AddContact";
-import EditContact from "./components/EditContact";
+import EditContact from "./components/EditContact/EditContact";
 //import Friends from "./components/Friends";
 import Friends from "./components/Friends/Friends";
 //import "./styles.css";
@@ -28,6 +28,7 @@ const App = () => {
           <Route path="/auth" exact component={() => <Auth/>} />
           <Route path="/Friends" component={() => <Friends />} />
           <Route exact path="/edit/:id" component={() => <EditContact />} />
+          {/* does not work at the moment and instead throws an error*/}
           <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/Pomo" />)} />
         </Switch>
       </Container>

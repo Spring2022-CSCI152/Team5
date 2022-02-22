@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import BackpackIcon from '@mui/icons-material/Backpack';
-import axios from "axios";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import {getUser} from "../../../services/ApiCalls";
 
 const InventoryItem = ({itemName, itemType}) => {
     return (
@@ -37,7 +37,6 @@ const InventoryModal = ({open, handleClose, inventory, isLoading}) => {
             <Dialog open={open}>
                 <ClickAwayListener onClickAway={handleClose}>
                     <Box sx={{p: 5}}>
-                        {console.log(inventory)}
                         {inventory.num_items < 0 ? "You have no items" : inventory.items.map(item => <InventoryItem itemName={item.name} itemType={item.type} />)}
                     </Box>
                 </ClickAwayListener>
@@ -53,10 +52,9 @@ const Inventory = () => {
     const userId = profile.result._id
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/v1/users/inventory?userId=${userId}`)
+        getUser
             .then(
                 response => {
-                    console.log(response.data)
                     setInventory(response.data)
                     setLoading(false)
                 }
