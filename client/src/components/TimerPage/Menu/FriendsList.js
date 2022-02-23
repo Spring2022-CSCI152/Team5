@@ -100,7 +100,7 @@ const FriendsList = () => {
     }
 
     useEffect(() => {
-        getUser
+        getUser()
             .then(res => {
                 setFriends(res.data.friends)
                 setNumFriends(res.data.num_friends)

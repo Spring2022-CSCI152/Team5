@@ -59,7 +59,7 @@ const ItemShop = ({character, setCharacter}) => {
     }
 
     useEffect(() => {
-        getItemShop
+        getItemShop()
             .then((res) => {
                 const itemList = (res.data.items)
                 setItemShop(itemList)

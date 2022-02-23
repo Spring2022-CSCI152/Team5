@@ -7,7 +7,6 @@ import Inventory from "../Menu/Inventory"
 import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import FormControl, { useFormControl } from '@mui/material/FormControl';
 
 const NameDisplay = ({name, character, setCharacter}) => {
     const profile = JSON.parse(localStorage.getItem('profile'))

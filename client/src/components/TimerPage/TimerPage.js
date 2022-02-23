@@ -15,7 +15,6 @@ import TimeMath from '../../services/TimeMath'
 import TimerAdjust from '../TimerPage/Menu/TimerAdjust'
 import FriendsList from '../TimerPage/Menu/FriendsList'
 import ItemShop from '../TimerPage/Menu/ItemShop'
-import ApiCalls from "../../services/ApiCalls";
 
 function TimerPage() {
 
@@ -82,7 +81,7 @@ function TimerPage() {
     const timeoutID = 0;
 
     useEffect(() => {
-        getUser
+        getUser()
             .then(
                 response => {
                     setCharacter(response.data)

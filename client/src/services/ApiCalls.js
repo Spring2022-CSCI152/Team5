@@ -1,12 +1,21 @@
 import axios from 'axios'
 const profile = JSON.parse(localStorage.getItem('profile'))
-const userId = profile.result._id
+let userId;
+if(profile){
+   userId = profile.result._id
+    console.log(userId)
+}
+
 const baseUrl = `http://localhost:5000/api/v1/users/character?userId=${userId}`;
 
 export const getUser = () => {
     return axios.get(baseUrl)
 }
-
+export const getInventory = () => {
+    const charData = axios.get(baseUrl)
+    let inventory = charData.then(res => res.data.inventory)
+    return inventory
+}
 export const getItemShop = () => {
     return axios.get("http://localhost:5000/api/v1/itemshop/")
 }
@@ -33,4 +42,16 @@ export const updateGold = (newAmount) => {
         gold: newAmount
     }
     return axios.put(`http://localhost:5000/api/v1/users/character`, updatedGold)
+}
+
+export const getQuests = () => {
+    return axios.get(`http://localhost:5000/api/v1/users/tasks?userId=${userId}`)
+}
+
+export const addQuest = (Quest) => {
+    const insertedQuest = {
+        user_id: userId,
+        task_name: Quest
+    }
+    return axios.post(`http://localhost:5000/api/v1/users/tasks`, insertedQuest)
 }

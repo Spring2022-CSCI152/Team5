@@ -6,7 +6,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import BackpackIcon from '@mui/icons-material/Backpack';
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import {getUser} from "../../../services/ApiCalls";
+import {getInventory, getUser} from "../../../services/ApiCalls";
 
 const InventoryItem = ({itemName, itemType}) => {
     return (
@@ -37,7 +37,7 @@ const InventoryModal = ({open, handleClose, inventory, isLoading}) => {
             <Dialog open={open}>
                 <ClickAwayListener onClickAway={handleClose}>
                     <Box sx={{p: 5}}>
-                        {inventory.num_items < 0 ? "You have no items" : inventory.items.map(item => <InventoryItem itemName={item.name} itemType={item.type} />)}
+                        {inventory.length === 0  ? "You have no items" : inventory.items.map(item => <InventoryItem itemName={item.name} itemType={item.type} />)}
                     </Box>
                 </ClickAwayListener>
             </Dialog>
@@ -48,14 +48,12 @@ const InventoryModal = ({open, handleClose, inventory, isLoading}) => {
 const Inventory = () => {
     const [inventory, setInventory] = useState([])
     const [isLoading, setLoading] = useState(true)
-    const profile = JSON.parse(localStorage.getItem('profile'))
-    const userId = profile.result._id
 
     useEffect(() => {
-        getUser
+        getInventory()
             .then(
-                response => {
-                    setInventory(response.data)
+                initialInventory => {
+                    setInventory(initialInventory)
                     setLoading(false)
                 }
             )
