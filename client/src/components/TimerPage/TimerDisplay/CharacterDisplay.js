@@ -39,7 +39,7 @@ const NameDisplay = ({name, character, setCharacter}) => {
 
     else {
         return (
-            <Typography variant="p">
+            <Typography variant="p" className='nameDisplay'>
                 {name} <br />
             </Typography>
         )

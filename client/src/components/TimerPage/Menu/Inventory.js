@@ -6,7 +6,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import BackpackIcon from '@mui/icons-material/Backpack';
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import {getInventory, getUser} from "../../../services/ApiCalls";
+import {getInventory} from "../../../services/ApiCalls";
 
 const InventoryItem = ({itemName, itemType}) => {
     return (
@@ -79,9 +79,7 @@ const Inventory = () => {
                 <BackpackIcon />
             </IconButton>
             <InventoryModal open={open} handleClose={handleClose} inventory={inventory} isLoading={isLoading}/>
-
         </Box>
-
     )
 }
 
