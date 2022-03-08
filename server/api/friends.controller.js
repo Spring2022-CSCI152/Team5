@@ -14,7 +14,6 @@ export default class FriendsCtrl {
             }
 
             let daoResponse = await FriendsDAO.getFriends(userId)
-
             const user = daoResponse.user[0];
             let friendsList = user.friends_list.friends
             let totalNumFriends = user.friends_list.num_friends

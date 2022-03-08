@@ -41,24 +41,18 @@ export default class CharacterCtrl {
             if(req.body.gold + 1) {
                 characterInfo.gold = req.body.gold
             }
-
-            const characterUpdateResponse = await CharacterDAO.updateCharacter(
-                userId,
-                characterInfo
-            )
-
-            /*var { error } = characterUpdateResponse
-            if (error) {
-                res.status(400).json({ error })
-            }*/
-
-            /*if (characterUpdateResponse.modifiedCount === 0) {
-                throw new Error(
-                    "unable to update character - user id may be incorrect"
+            const user = await CharacterDAO.getCharacter({
+                userId
+            })
+            if(user.character == null){
+                res.json({status:"Wrong Id"})
+            } else {
+                const characterUpdateResponse = await CharacterDAO.updateCharacter(
+                    userId,
+                    characterInfo
                 )
-            }*/
-
-            res.json({ character: characterInfo, status: "success" })
+                res.json({ character: characterInfo, status: "success" })
+            }
         } catch (e) {
             res.status(500).json( {error: e.message })
         }
