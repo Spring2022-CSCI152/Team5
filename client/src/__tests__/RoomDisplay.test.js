@@ -1,7 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render, screen} from '@testing-library/react'
-import RoomDisplay from "./RoomDisplay";
+import RoomDisplay from "../components/TimerPage/TimerDisplay/RoomDisplay";
 
 test('display pomodoros completed and streak multiplier', () => {
     render(<RoomDisplay pomosCompleted={2} multiplier={3}/>)

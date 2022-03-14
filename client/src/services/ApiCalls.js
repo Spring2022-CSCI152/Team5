@@ -36,6 +36,15 @@ export const buyItem = (item) => {
     return axios.post("http://localhost:5000/api/v1/users/inventory", addedItem)
 }
 
+export const updateCharacterName = (newName) => {
+    const newNameObj = {
+        user_id: userId,
+        char_name: newName
+    }
+    return axios.put(`http://localhost:5000/api/v1/users/character`, newNameObj)
+        .catch(e => console.log(e.response))
+}
+
 export const updateGold = (newAmount) => {
     const updatedGold = {
         user_id: userId,

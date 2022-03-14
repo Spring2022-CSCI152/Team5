@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import {addQuest, getQuests} from "../../../services/ApiCalls";
+import List from '@mui/material/List';
+import {ListItemButton, Button, Box, TextField} from '@mui/material'
 
 const NewTaskHandler = ({quests, setQuests}) => {
     const [newQuest, setNewQuest] = useState("")
@@ -41,22 +38,23 @@ const QuestDisplay = ({setActiveTask}) => {
         setActiveTask(quest.name)
     }
 
+    const handleInitialQuests = (initialQuests) => {
+        if (initialQuests.data.tasks.length !== 0){
+            setQuests(initialQuests.data.tasks)
+            setSelectedIndex(initialQuests.data.tasks[0]._id)
+            setActiveTask(initialQuests.data.tasks[0].name)
+        }
+    }
+
     useEffect(() => {
-        getQuests()
-            .then(initialQuests => {
-                if (initialQuests.data.tasks.length !== 0){
-                    setQuests(initialQuests.data.tasks)
-                    setSelectedIndex(initialQuests.data.tasks[0]._id)
-                    setActiveTask(initialQuests.data.tasks[0].name)
-                }
-            })
+        getQuests().then(initialQuests => handleInitialQuests(initialQuests))
     }, [])
 
     return (
         <Box>
             <List sx={{maxHeight: 105, overflow: 'auto', mt: 5}}>
                 {quests.map(quest =>
-                    <ListItemButton selected={selectedIndex === quest._id} onClick={() => handleClick(quest)}> {quest.name} </ListItemButton>
+                    <ListItemButton data-testid='quest-display' selected={selectedIndex === quest._id} onClick={() => handleClick(quest)}> {quest.name} </ListItemButton>
                 )}
             </List>
             <NewTaskHandler setQuests={setQuests} quests={quests}/>
