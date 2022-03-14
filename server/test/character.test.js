@@ -26,6 +26,13 @@ describe("apiGetCharacter",function(){
             done()
         })
     })
+    it("Returns a 400 error with message,Please enter userId in the query.,when no userId is given is given",function(done){
+        request(url+path,function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("\"Please enter userId in the query.\"")
+            done()
+        })
+    })
 })
 
 describe("apiUpdateCharacter",function(){
@@ -46,7 +53,7 @@ describe("apiUpdateCharacter",function(){
                 done()
             })
     })
-    it("Returns when an incorrect id is sent",function(done){
+    it("Returns 400 with message, Wrong Id, when an incorrect id is sent",function(done){
         var json = {
             "user_id":"aylmao",
             "level":"1",
@@ -58,8 +65,31 @@ describe("apiUpdateCharacter",function(){
         chai
             .request(url).put(path)
             .set("content-type","application/json").send(json).end(function(error,response,body){
+                expect1(response.statusCode).to.be.equal(400)
+                expect1(response.body).to.be.equal("Wrong Id")
+                done()
+            })
+    })
+    it("Returns 500 when nothing is sent",function(done){
+        var json = {
+        }
+        chai
+            .request(url).put(path)
+            .set("content-type","application/json").send(json).end(function(error,response,body){
+                expect1(response.statusCode).to.be.equal(500)
+                done()
+            })
+    })
+    it("Returns 200 with message, Wrong Id, when incorrect type is sent for level",function(done){
+        var json = {
+            "user_id":id,
+            "level":"Hello"
+        }
+        chai
+            .request(url).put(path)
+            .set("content-type","application/json").send(json).end(function(error,response,body){
                 expect1(response.statusCode).to.be.equal(200)
-                expect1(response.body.status).to.be.equal("Wrong Id")
+                expect1(response.body.status).to.be.equal("success")
                 done()
             })
     })

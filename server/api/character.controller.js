@@ -22,30 +22,31 @@ export default class CharacterCtrl {
             if(req.body.char_name) {
                 characterInfo.char_name = req.body.char_name
             }
-            if(req.body.level + 1) {
+            if(req.body.level + 1 && !isNaN(req.body.level)) {
                 console.log("Test");
                 characterInfo.level = req.body.level
             }
-            if(req.body.current_xp + 1) {
+            if(req.body.current_xp + 1 && !isNaN(req.body.level)) {
                 characterInfo.current_xp = req.body.current_xp
             }
-            if(req.body.xp_to_next_level + 1) {
+            if(req.body.xp_to_next_level + 1 && !isNaN(req.body.level)) {
                 characterInfo.xp_to_next_level = req.body.xp_to_next_level
             }
-            if(req.body.max_hp + 1) {
+            if(req.body.max_hp + 1 && !isNaN(req.body.level)) {
                 characterInfo.max_hp = req.body.max_hp
             }
-            if(req.body.current_hp + 1) {
+            if(req.body.current_hp + 1 && !isNaN(req.body.level)) {
                 characterInfo.current_hp = req.body.current_hp
             }
-            if(req.body.gold + 1) {
+            if(req.body.gold + 1 && !isNaN(req.body.level)) {
                 characterInfo.gold = req.body.gold
             }
             const user = await CharacterDAO.getCharacter({
                 userId
             })
             if(user.character == null){
-                res.json({status:"Wrong Id"})
+                res.status(400).json("Wrong Id")
+                return
             } else {
                 const characterUpdateResponse = await CharacterDAO.updateCharacter(
                     userId,

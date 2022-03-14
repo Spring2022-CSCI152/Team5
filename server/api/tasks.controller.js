@@ -1,4 +1,5 @@
 import TasksDAO from "../dao/tasksDAO.js"
+import UsersDAO from "../dao/usersDAO.js"
 import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
 
@@ -12,9 +13,8 @@ export default class TasksCtrl {
                 res.status(400).json("Please query based on a userId.")
                 return
             }
-
+            console.log(userId)
             let daoResponse = await TasksDAO.getTasks(userId)
-
             const user = daoResponse.user[0];
             let tasksList = user.tasks
             let totalNumTasks = tasksList.length
@@ -50,7 +50,12 @@ export default class TasksCtrl {
                     num_tasks: totalNumTasks
                 }
             }
-            res.json(response)
+            if(response){
+                res.json(response)
+            } else {
+                res.status(400).json("Please query with the correct task name or id")
+            }
+           
         } catch (e) {
             res.status(500).json({ error: e.message })
         }

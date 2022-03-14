@@ -10,7 +10,7 @@ var expect1 = chai.expect
 //By default, it will choose the id of the new user after the apiAddUser test
 var id = ""
 //Change this username to a new one for each test
-var username = "brother5"
+var username = "brother17"
 var url = "http://localhost:5000"
 var path = '/api/v1/users/'
 
@@ -40,28 +40,94 @@ describe("apiGetUsers", function() {
             done()
         })
     })
+    it("Returns a list of all the users with no queries",function(done){
+        request(url+path,function(error,response,body){
+            expect1(response.statusCode).to.equal(200)
+            var json = JSON.parse(response.body)
+            expect1(json.users).to.be.an("array")
+            done()
+        })
+    })
+    it("Returns 200 with full users list when queryed with incorrect user_name", function(done){
+        request(url+path+"?userName=Johnlol",function(error,response,body) {
+            expect1(response.statusCode).to.equal(200)
+            var json = JSON.parse(response.body)
+            expect1(json.users).to.be.an("array")
+            done()
+        })
+
+    })
     
+    it("Returns 200 with full users list when queryed by incorrect id",function(done){
+        request(url+path+"?id=415",function(error,response,body) {
+            expect1(response.statusCode).to.equal(200)
+            var json = JSON.parse(response.body)
+            expect1(json.users).to.be.an("array")
+            done()
+        })
+    })
 })
 
-//Will probably set up with a randomizer later to test with new user each time
-//For now, make different test cases each time you want to test
 describe("apiAddUser",function() {
     it("Returns the new users token when they are added if they are a new user, else it says username taken",function(done){
         var requestStr = "{\"user_name\":\""+username+"\",\"password\":\"aybruh1\",\"char_name\":\"lmaoster\"}"
         chai
             .request(url).post('/api/v1/users')
             .set('content-type',"application/json").send(JSON.parse(requestStr)).end(function(error,response,body){
-                if(response.statusCode == 400){
-                    expect1(response.body.message).to.be.equal("Username already taken.")
-                    done()
-                } else{
-                    expect1(response.statusCode).to.equal(200)
-                    expect(response.body.result.user_name).to.be.equal(username)
-                    id = response.body.result._id
-                    console.log(id)
-                    done()
-                }
+                expect1(response.statusCode).to.equal(200)
+                expect1(response.body.result.user_name).to.be.equal(username)
+                id = response.body.result._id
+                done()
             })
+    })
+    it("Returns a 400 with the message, Username already taken., when the username given is already in the database",function(done){
+        var request = {
+            "user_name":"mattyhatch",
+            "password":"lolster",
+            "char_name":"bruh"
+        }
+        chai.request(url).post("/api/v1/users")
+        .set("content-type","application/json").send(request).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Username already taken.")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Please enter a username,password, and a character name., when a username is not given",function(done){
+        var request = {
+            "password":"lolster",
+            "char_name":"bruh"
+        }
+        chai.request(url).post("/api/v1/users")
+        .set("content-type","application/json").send(request).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please enter a username,password, and a character name.")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Please enter a username,password, and a character name., when a password is not given",function(done){
+        var request = {
+            "user_name":"lolster",
+            "char_name":"bruh"
+        }
+        chai.request(url).post("/api/v1/users")
+        .set("content-type","application/json").send(request).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please enter a username,password, and a character name.")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Please enter a username,password, and a character name., when a character name is not given",function(done){
+        var request = {
+            "password":"lolster",
+            "user_name":"bruh"
+        }
+        chai.request(url).post("/api/v1/users")
+        .set("content-type","application/json").send(request).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please enter a username,password, and a character name.")
+            done()
+        })
     })
 })
 
@@ -72,7 +138,7 @@ describe("apiUpdateUser",function(){
             .request(url).put('/api/v1/users')
             .set("content-type","application/json").send(JSON.parse(requestStr)).end(function(error,response,body){
                 expect1(response.statusCode).to.equal(200)
-                expect(response.body.result.user_name).to.be.equal("aylmao90")
+                expect1(response.body.result.user_name).to.be.equal("aylmao90")
                 done()
             })
     })
@@ -82,7 +148,7 @@ describe("apiUpdateUser",function(){
             .request(url).put('/api/v1/users')
             .set("content-type","application/json").send(JSON.parse(requestStr)).end(function(error,response,body){
                 expect1(response.statusCode).to.equal(400)
-                expect(response.body.message).to.be.equal("Invalid credentials")
+                expect1(response.body.message).to.be.equal("Invalid credentials")
                 done()
             })
     })
@@ -92,7 +158,16 @@ describe("apiUpdateUser",function(){
         .request(url).put('/api/v1/users')
         .set("content-type","application/json").send(JSON.parse(requestStr)).end(function(error,response,body){
             expect1(response.statusCode).to.equal(200)
-            expect(response.body.status).to.be.equal("success")
+            expect1(response.body.status).to.be.equal("success")
+            done()
+        })
+    })
+    it("Returns a 500 when no username or password is passed",function(done){
+        var request = {}
+        chai
+        .request(url).put('/api/v1/users')
+        .set("content-type","application/json").send(request).end(function(error,response,body){
+            expect1(response.statusCode).to.equal(500)
             done()
         })
     })
@@ -104,8 +179,28 @@ describe("apiDeleteUser",function(){
         chai
         .request(url).delete('/api/v1/users')
         .set("content-type","application/json").send(request).end(function(error,response,body){
-            expect(response.statusCode).to.be.equal(200)
-            expect(response.body.status).to.be.equal("success")
+            expect1(response.statusCode).to.be.equal(200)
+            expect1(response.body.status).to.be.equal("success")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Please use the user id for deletion, when no userId is passed",function(done){
+        var request = {}
+        chai
+        .request(url).delete('/api/v1/users')
+        .set("content-type","application/json").send(request).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please use the user id for deletion")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Please use a correct user id., when no userId is passed",function(done){
+        var request = {"id":415}
+        chai
+        .request(url).delete('/api/v1/users')
+        .set("content-type","application/json").send(request).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please use a correct user id.")
             done()
         })
     })
