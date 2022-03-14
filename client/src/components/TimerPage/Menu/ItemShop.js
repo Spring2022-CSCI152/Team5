@@ -39,6 +39,7 @@ const Item = ({item, isOwned, handleBuy}) => {
 const ItemShop = ({character, setCharacter}) => {
     const [itemShop, setItemShop] = useState([])
     const [open, setOpen] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const handleClickOpen = () => {
         setOpen(true)
     }
@@ -63,6 +64,7 @@ const ItemShop = ({character, setCharacter}) => {
             .then((res) => {
                 const itemList = (res.data.items)
                 setItemShop(itemList)
+                setLoaded(true)
             })
             .catch(err => console.log(err))
     }, [])
@@ -76,7 +78,8 @@ const ItemShop = ({character, setCharacter}) => {
             <Dialog open={open}>
                 <ClickAwayListener onClickAway={handleClose}>
                     <Box sx={{display: "flex", flexWrap: "wrap", justifyContent: "center" ,p: 5}}>
-                        {itemShop.map(item => character.inventory.some(charItem => charItem._id === item._id) ? <Item item={item} isOwned={true} /> : <Item item={item} isOwned={false} handleBuy={handleBuy}/>) }
+                        {!loaded && <p>Loading...</p>}
+                        {loaded && itemShop.map(item => character.inventory.some(charItem => charItem._id === item._id) ? <Item item={item} isOwned={true} /> : <Item item={item} isOwned={false} handleBuy={handleBuy}/>) }
                     </Box>
                 </ClickAwayListener>
             </Dialog>

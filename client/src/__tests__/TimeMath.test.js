@@ -8,6 +8,6 @@ test('formatting 90 seconds returns 1:30', () => {
     expect(formatSeconds(90)).toBe('1:30')
 })
 
-test('formatting 0 returns 0:00', () => {
+test('formatting 0 returns 0:0a0', () => {
     expect(formatSeconds(0)).toBe('0:00')
 })
