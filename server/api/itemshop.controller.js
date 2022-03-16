@@ -42,7 +42,7 @@ export default class ItemShopCtrl {
             filters.name = name
             const oldItem = await ItemShopDAO.getItems({filters})
             if (oldItem.totalNumItems > 0) {
-                res.status(400).json({ message: "Item already exists." })
+                res.status(400).json("Item already exists.")
                 return
             }
 
@@ -62,8 +62,8 @@ export default class ItemShopCtrl {
                 cost,
                 date
             )
-
-            res.json({ result })
+            const newItem = await ItemShopDAO.getItems(filters)
+            res.json({ newItem })
         } catch (e) {
             res.status(500).json({ error: e.message })
         }
@@ -71,28 +71,39 @@ export default class ItemShopCtrl {
 
     static async apiUpdateItem(req, res, next) {
         try {
-
-            const itemId = req.body.id
+            let itemId
+            if(req.body.id){
+                itemId = req.body.id
+            } else {
+                res.status(400).json("Please have a item id in the request")
+                return
+            }
             let itemInfo = {}
+            var flag = true
             if(req.body.name) {
                 itemInfo.name = req.body.name
+                flag = false
             }
             if (req.body.type) {
                 itemInfo.type = req.body.type
+                flag = false
             }
             if (req.body.cost) {
                 itemInfo.cost = parseInt(req.body.cost, 10)
+                flag = false
             }
-
+            if(flag) {
+                res.status(400).json("Please give a stat to update")
+                return
+            }
             const itemUpdateResponse = await ItemShopDAO.updateItem(
                 itemId,
                 itemInfo
             )
-
-            var { error } = itemUpdateResponse
-            if (error) {
-                res.status(400).json({ error })
-            }
+            if (itemUpdateResponse.updateResponse.modifiedCount == 0) {
+                res.status(400).json("Please use a correct item id")
+                return
+            } 
 
             if (itemUpdateResponse.modifiedCount === 0) {
                 throw new Error(
@@ -111,12 +122,16 @@ export default class ItemShopCtrl {
         try {
             const itemId = req.body.id
             if (!itemId)  {
-                res.status(400).json({ error: "Please use the item id for deletion" });
+                res.status(400).json("Please use the item id for deletion");
             } else {
                 const itemDeleteResponse = await ItemShopDAO.deleteItem (
                     itemId
                 )
-                res.json({ status: "success" })
+                if(itemDeleteResponse.error){
+                    res.status(400).json("Please use a correct item id")
+                    return
+                }
+                res.json({ status: "success"})
             }
         } catch (e) {
             res.status(500).json({ error: e.message })
