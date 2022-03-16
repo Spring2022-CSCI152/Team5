@@ -1,6 +1,6 @@
 import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
-
+let item = "testing"
 let users
 let itemshop
 
