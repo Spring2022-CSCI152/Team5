@@ -1,0 +1,1 @@
+import friendChatDAO from "../dao/friendChatDAO.js"
