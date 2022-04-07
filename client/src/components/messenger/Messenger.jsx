@@ -23,10 +23,12 @@ return (
       <div className="chatBoxWrapper">
         <div className="chatBoxTop">
           <Message />
+          <Message own={true}/>
           <Message />
-          <Message />
-          <Message />
-          <Message />
+        </div>
+        <div className="chatBoxBottom">
+          <textarea className="chatMessageInput" placeholder = "Chat with friend"></textarea>
+          <button className="chatSubmitButton">Send</button>
         </div>
       </div>
     </div>
