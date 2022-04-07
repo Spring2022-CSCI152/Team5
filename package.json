@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "mongoose": "^6.2.10"
+  }
+}
