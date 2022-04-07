@@ -25,7 +25,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={() => <Redirect to="/Pomo" />} />
           <Route path="/Pomo" exact component={() => < TimerPage/>} />
-          <Route exact path="/messeger" component={() => <Messenger />} />
+          <Route exact path="/messenger" component={() => <Messenger />} />
           <Route exact path="/add" component={() => <AddPost />} />
           <Route path="/auth" exact component={() => <Auth/>} />
           <Route path="/Friends" component={() => <Friends />} />

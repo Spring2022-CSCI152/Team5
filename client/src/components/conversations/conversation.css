@@ -11,9 +11,9 @@
   }
   
   .conversationImg {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    border-radius: 70%;
     object-fit: cover;
     margin-right: 20px;
   }
