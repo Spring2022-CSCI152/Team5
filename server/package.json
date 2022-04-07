@@ -21,6 +21,9 @@
     "mocha": "^9.2.1",
     "mongodb": "^4.1.4",
     "nodemon": "^2.0.15",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "sinon": "^13.0.1",
+    "socket.io": "^4.4.1",
+    "socketio": "^1.0.0"
   }
 }
