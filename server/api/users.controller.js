@@ -14,7 +14,10 @@ export default class UsersCtrl {
         if (req.query.userName) {
             filters.user_name = req.query.userName
         } else if (req.query.id) {
-            filters.id = req.query.id
+            var temp = req.query.id
+            if(String(temp).length == 24){
+                filters.id = req.query.id
+            }
         }
 
         const { usersList, totalNumUsers } = await UsersDAO.getUsers({
@@ -35,18 +38,25 @@ export default class UsersCtrl {
 
     static async apiAddUser(req, res, next) {
         try{
-            const userName = req.body.user_name
+            let userName
+            let password
+            let charName
+            if(req.body.user_name && req.body.password && req.body.char_name){
+                userName = req.body.user_name
+                password = req.body.password
+                charName = req.body.char_name
+            } else {
+                res.status(400).json("Please enter a username,password, and a character name.")
+                return
+            }
 
             let filters = {}
             filters.user_name = userName
             const oldUser = await UsersDAO.getUsers({filters})
             if (oldUser.totalNumUsers > 0) {
-                res.status(400).json({ message: "Username already taken." })
+                res.status(400).json("Username already taken.")
                 return
             }
-
-            const password = req.body.password
-            const charName = req.body.char_name
             const date = new Date()
 
             const hashedPassword = await bcrypt.hash(password, 12);
@@ -122,12 +132,17 @@ export default class UsersCtrl {
         try {
             const userId = req.body.id
             if (!userId)  {
-                res.status(400).json({ error: "Please use the user id for deletion" });
+                res.status(400).json("Please use the user id for deletion");
             } else {
                 const userDeleteResponse = await UsersDAO.deleteUser (
                     userId
                 )
-                res.json({ status: "success" })
+                console.log(userDeleteResponse)
+                if(userDeleteResponse.deletedCount == 0){
+                    res.status(400).json("Please use a correct user id.")
+                } else {
+                    res.json({ status: "success" })
+                }
             }
         } catch (e) {
             res.status(500).json({ error: e.message })

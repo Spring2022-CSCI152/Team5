@@ -14,8 +14,11 @@ export default class InventoryCtrl {
             }
 
             let daoResponse = await InventoryDAO.getInventory(userId)
-
             const user = daoResponse.user[0];
+            if(!user){
+                res.status(400).json("Please query with a correct userId")
+                return
+            }
             let inventory = user.character.inventory
             let totalNumItems = inventory.length
             let response
@@ -38,8 +41,11 @@ export default class InventoryCtrl {
                     num_items: totalNumItems
                 }
             }
-            
-            res.json(response)
+            if(response){
+                res.json(response)
+            } else {
+                res.status(400).json("Please query with a correct item name")
+            }
         } catch (e) {
             res.status(500).json({ error: e.message })
         }
@@ -116,6 +122,10 @@ export default class InventoryCtrl {
             const userResult = await InventoryDAO.getInventory(userId)
             
             let user = userResult.user[0]
+            if(!user){
+                res.status(400).json("Target user could not be found.")
+                return
+            }
             let inventory = user.character.inventory
             let itemExists = false
             

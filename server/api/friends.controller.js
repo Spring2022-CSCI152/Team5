@@ -14,7 +14,6 @@ export default class FriendsCtrl {
             }
 
             let daoResponse = await FriendsDAO.getFriends(userId)
-
             const user = daoResponse.user[0];
             let friendsList = user.friends_list.friends
             let totalNumFriends = user.friends_list.num_friends
@@ -38,8 +37,11 @@ export default class FriendsCtrl {
                     num_friends: totalNumFriends
                 }
             }
-            
-            res.json(response)
+            if(response == null){
+                res.status(400).json("Please query with a correct friend username")
+            } else {
+                res.json(response)
+            }
         } catch (e) {
             res.status(500).json({ error: e.message })
         }
@@ -178,6 +180,10 @@ export default class FriendsCtrl {
             const userResult = await FriendsDAO.getFriends(userId)
             
             let user = userResult.user[0]
+            if(!user){
+                res.status(400).json("Target user not found.")
+                return 
+            }
             let friendsList = user.friends_list.friends
             let friendExists = false
             
