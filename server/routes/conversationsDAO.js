@@ -2,6 +2,7 @@ import express from "express"
 import mongodb from "mongodb"
 //const mongoose = require("mongoose");
 const ObjectId = mongodb.ObjectId
+import mongoose from "mongoose"
 
 const router = express.Router()
 
@@ -9,7 +10,14 @@ const router = express.Router()
 
 //new conv
 let convos
-
+const newConvo = new mongoose.Schema({
+    members: {
+      type: Array,
+    },
+  },
+  { timestamps: true }
+)
+let CM = mongoose.model("newConvo", newConvo)
 export default class ConversationsDAO{
   
 //router.post("/", async (req, res) => {
