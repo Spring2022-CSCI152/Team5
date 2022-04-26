@@ -30,6 +30,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "socket.io": "^4.4.1",
+    "timeago.js": "^4.0.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
