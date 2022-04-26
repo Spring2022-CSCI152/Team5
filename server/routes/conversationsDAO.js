@@ -1,5 +1,6 @@
 import express from "express"
 import mongodb from "mongodb"
+//const mongoose = require("mongoose");
 const ObjectId = mongodb.ObjectId
 
 const router = express.Router()
@@ -10,6 +11,7 @@ const router = express.Router()
 let convos
 
 export default class ConversationsDAO{
+  
 //router.post("/", async (req, res) => {
   static async injectDB(conn) {
     if (convos) {

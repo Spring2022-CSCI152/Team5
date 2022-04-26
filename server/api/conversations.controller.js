@@ -6,7 +6,7 @@ export default class ConvoCtrl{
         try{
             const sender = req.body.senderId
             const reciever = req.body.recieverId
-            const result = await ConversationsDAO.addConvo(sender,reciever)
+            const result = await conversationsDAO.addConvo(sender,reciever)
             res.status(200).json(result);
         } catch (e) {
             res.status(500).json({ error: e.message })
@@ -21,14 +21,5 @@ export default class ConvoCtrl{
             res.status(500).json({ error: e.message })
         }
     }
-
-
-
-
-
-
-
-
-
 
 }

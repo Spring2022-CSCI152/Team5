@@ -7,7 +7,7 @@ import FriendsDAO from "./dao/friendsDAO.js"
 import TasksDAO from "./dao/tasksDAO.js"
 import ItemShopDAO from "./dao/itemshopDAO.js"
 import conversationsDAO from "./routes/conversationsDAO.js"
-// messageRoute = require("./routes/messages");
+import messagesDAO  from "./routes/messagesDAO.js"
 import InventoryDAO from "./dao/inventoryDAO.js"
 
 
@@ -35,6 +35,7 @@ MongoClient.connect(
     await ItemShopDAO.injectDB(client)
     await InventoryDAO.injectDB(client)
     await conversationsDAO.injectDB(client)
+    await messagesDAO.injectDB(client)
     app.listen(port, () => {
         console.log(`listening on port ${port}`)
     })

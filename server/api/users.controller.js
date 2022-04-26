@@ -36,7 +36,7 @@ export default class UsersCtrl {
     static async apiAddUser(req, res, next) {
         try{
             const userName = req.body.user_name
-
+            
             let filters = {}
             filters.user_name = userName
             const oldUser = await UsersDAO.getUsers({filters})
