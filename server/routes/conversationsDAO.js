@@ -2,7 +2,6 @@ import express from "express"
 import mongodb from "mongodb"
 //const mongoose = require("mongoose");
 const ObjectId = mongodb.ObjectId
-import mongoose from "mongoose"
 
 const router = express.Router()
 
@@ -10,16 +9,21 @@ const router = express.Router()
 
 //new conv
 let convos
-const newConvo = new mongoose.Schema({
-    members: {
-      type: Array,
-    },
-  },
-  { timestamps: true }
-)
-let CM = mongoose.model("newConvo", newConvo)
+
 export default class ConversationsDAO{
   
+  static async pracInsert(senderId,recieverId){
+    try{
+        const newconversation = new CM ({
+          members: [senderId,recieverId]
+        })
+        const savedconvo = await newconversation.save();
+        return savedconvo
+    }catch (e){
+      console.error(`Unable to add user: ${e}`)
+      return { error: e }
+    }
+  }
 //router.post("/", async (req, res) => {
   static async injectDB(conn) {
     if (convos) {
@@ -43,7 +47,8 @@ export default class ConversationsDAO{
              recieverId
            ],
             
-        timestamps: true ,
+        createdAt: new Date() ,
+        updatedAt: new Date()
     }
      await convos.insertOne(newConversation)
      return newConversation;
@@ -55,27 +60,15 @@ export default class ConversationsDAO{
  }
 static async getConvo(userId) {
   try{
-    const conversation = await convos.find({
-      members: { $in: [userId] },
-    });
+  
+    let query = { members: {$in: [userId] } }
+    console.log(userId)
+    const conversation = await convos.find(query).toArray();
+    console.log(conversation)
     return conversation
   }catch (e){
     console.error(`no conversation available: ${e}`)
     return { error: e}
-  }
+    }
   }
 }
-// // get conv includes two userId
-
-// router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
-//   try {
-//     const conversation = await Conversation.findOne({
-//       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
-//     });
-//     res.status(200).json(conversation)
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-//   });
-// } 
-// export default router
