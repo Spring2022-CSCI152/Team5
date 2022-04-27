@@ -30,7 +30,7 @@ export default class InventoryDAO {
             console.error(`Unable to issue find command, $(e)`)
             return { user: [] }
         }
-
+        
         const displayCursor = cursor.limit(1).skip(0)
 
         try {
