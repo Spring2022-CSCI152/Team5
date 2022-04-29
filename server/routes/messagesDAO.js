@@ -42,7 +42,8 @@ export default class messagesDAO{
       const m = {
         newMessage,
 
-        timestamps: true,
+        createdAt: new Date(),
+        updateAt: new Date()
       }
         const addedMessage = await mlink.insertOne(m)
         return m;

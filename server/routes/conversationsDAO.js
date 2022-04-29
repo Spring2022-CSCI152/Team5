@@ -60,11 +60,9 @@ export default class ConversationsDAO{
  }
 static async getConvo(userId) {
   try{
-  
+    
     let query = { members: {$in: [userId] } }
-    console.log(userId)
     const conversation = await convos.find(query).toArray();
-    console.log(conversation)
     return conversation
   }catch (e){
     console.error(`no conversation available: ${e}`)

@@ -32,6 +32,7 @@ export default class UsersCtrl {
         }
         res.json(response)
     }
+    static async 
 
     static async apiAddUser(req, res, next) {
         try{
