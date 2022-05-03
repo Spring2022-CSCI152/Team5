@@ -6,7 +6,7 @@ const router = express.Router()
 
 router
     .route("/message/")
-    .get(messagesCtrl.addNewMessage)
-    .post(messagesCtrl.getOldMessage)
+    .get(messagesCtrl.getOldMessage)
+    .post(messagesCtrl.addNewMessage)
    // .delete(conversationsCtrl.apiDeleteItem)
  export default router

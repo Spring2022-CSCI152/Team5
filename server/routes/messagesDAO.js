@@ -37,11 +37,12 @@ export default class messagesDAO{
     }
 
   }
-  static async addNewMessage(newMessage){
+  static async addNewMessage(senderId,texter,convoId){
     try {
       const m = {
-          newMessage,
-
+        conversationId: convoId,
+        sender: senderId,
+        text: texter,
         createdAt: new Date(),
         updateAt: new Date()
       }

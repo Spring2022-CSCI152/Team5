@@ -3,8 +3,10 @@ import messagesDAO from "../routes/messagesDAO.js"
 export default class MessageCtrl{
     static async addNewMessage(req, res,next){
         try{    
-            const message = req.body;
-            const result = await messagesDAO.addNewMessage(message);
+            const senderId = req.body.sender;
+            const texter = req.body.text;
+            const convoId = req.body.conversationId;
+            const result = await messagesDAO.addNewMessage(senderId,texter,convoId);
             res.status(200).json(result);
         }catch (e){
             res.status(500).json({ error: e.message })
