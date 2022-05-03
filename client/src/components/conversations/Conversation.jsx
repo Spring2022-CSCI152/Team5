@@ -6,7 +6,7 @@ import "./conversation.css"
 export default function Conversation({conversation, currentUserId,})
 {
 
-  console.log(currentUserId)
+  console.log(conversation)
 
   const profile = JSON.parse(localStorage.getItem('profile'));
   const userId = profile.result._id
@@ -15,8 +15,8 @@ export default function Conversation({conversation, currentUserId,})
  // const userId = 
   useEffect(()=>{ 
     
-    const friendId = conversation.members.find((m)=> m !== userId)
-
+    const friendId = conversation?.members.find((m)=> m !== userId)
+    console.log(friendId)
       const getUser = async () => {
         try {
         const res = await axios("/users?userId=" + friendId);

@@ -15,6 +15,7 @@ export default function Messenger()
   const profile = JSON.parse(localStorage.getItem('profile'))
   const userId = profile.result._id
   console.log(userId)
+ 
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -22,19 +23,28 @@ export default function Messenger()
   //const { user } = useContext(AuthContext);
   const scrollRef= useRef();
 
-    useEffect(()  =>{
-      const getConversations = async ()=>{
-        try{
-          const res = await axios.get("http://localhost:8801/api/conversations/"+userId)
-          console.log(res)
-          setConversations(res.data);
-        }catch(err){
-          console.log(err);
-        }
-      };
-      getConversations();
-    }, [userId]);
-    console.log(conversations)
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/v1/conversations/conversation/?userId=${userId}`)
+        .then(res => {
+          console.log(res.data)
+          setConversations(conversations.concat(res.data));
+        })
+      }, [])
+    // useEffect(()  =>{
+    //   const getConversations = async ()=>{
+    //     try{
+    //       const res = await axios.get("http://localhost:5000/api/v1/conversations/conversation/"+userId)
+    //       //console.log(res)
+    //       setConversations(res.data);
+    //     }catch(err){
+    //       console.log(err);
+    //     }
+    //   };
+    //   getConversations();
+    // }, [userId]);
+
+     console.log(conversations)
     useEffect(() => {
       const getMessages = async () =>{
         try{
@@ -62,7 +72,7 @@ export default function Messenger()
         console.log(err);
       }
     }
-   // console.log(userId)
+   console.log(userId)
     return (
   <>
   <Topbar />
@@ -98,7 +108,7 @@ export default function Messenger()
             onChange={(e)=> setNewMessage(e.target.value)}
             value = {newMessage}
             ></textarea>
-          <button className="chatSubmitButton" onClick = {handleSubmit}>
+          <button className="chatSubmitButton" onClick >
             Send
             </button>
         </div></> : <span className="noConversationText">Open a conversation to start a chat</span>}
