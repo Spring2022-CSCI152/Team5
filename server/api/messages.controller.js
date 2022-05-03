@@ -15,8 +15,9 @@ export default class MessageCtrl{
 
     static async getOldMessage(req, res, next){
         try{
-            const convId = req.body.convoId
-            const result = await messagesDAO.getOldMessage(convId);
+            console.log(req.body.conversationId)
+            const convId = req.body.conversationId
+            const result = await messagesDAO.getOldMessages(convId);
             res.status(200).json(result)
         }catch (e){
             res.status(500).json({ error: e.message })

@@ -58,7 +58,8 @@ export default class messagesDAO{
     try{
       const message = await mlink.find({
         conversationId: convoId,
-      });
+      }).toArray();
+      return message;
     }catch (e){
       console.error(`Unable to find message: ${e}`)
       return { error: e }
