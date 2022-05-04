@@ -37,7 +37,7 @@ const InventoryModal = ({open, handleClose, inventory, isLoading}) => {
             <Dialog open={open}>
                 <ClickAwayListener onClickAway={handleClose}>
                     <Box sx={{p: 5}}>
-                        {console.log(inventory)}
+                  
                         {inventory.num_items < 0 ? "You have no items" : inventory.items.map(item => <InventoryItem itemName={item.name} itemType={item.type} />)}
                     </Box>
                 </ClickAwayListener>
@@ -56,7 +56,7 @@ const Inventory = () => {
         axios.get(`http://localhost:5000/api/v1/users/inventory?userId=${userId}`)
             .then(
                 response => {
-                    console.log(response.data)
+                   // console.log(response.data)
                     setInventory(response.data)
                     setLoading(false)
                 }

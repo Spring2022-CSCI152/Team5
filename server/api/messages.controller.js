@@ -11,7 +11,7 @@ export default class MessageCtrl{
         }catch (e){
             res.status(500).json({ error: e.message })
         }
-    }
+    } 
 
     static async getOldMessage(req, res, next){
         try{

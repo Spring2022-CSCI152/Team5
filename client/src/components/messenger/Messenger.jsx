@@ -51,30 +51,11 @@ export default function Messenger()
           conversationId: currentChat?._id
         }
       }).then(response  => {
-        console.log(response.data)
+     
         setMessages(response.data)
       })
     }, [currentChat])
-     //console.log(conversations)
-    // console.log(currentChat?._id)
-
-    // useEffect(() => {
-    //   console.log(currentChat?._id)
-
-    //   const getMessages = async () =>{
-    //     try{
-    //       const res = await axios.get('http://localhost:5000/api/v1/messages/message/', {
-    //         params: {
-    //           conversationId: currentChat?._id
-    //         }
-    //       })
-    //       setMessages(res.data);
-    //     } catch (err){
-    //     console.log(err);
-    //       }
-    //     };
-    //     getMessages()
-    // }, [currentChat]) 
+  
 
     const handleSubmit = async(e) => {
       e.preventDefault();
@@ -84,7 +65,7 @@ export default function Messenger()
         conversationId: currentChat._id,
       };
       try{
-        const res = await axios.post("/messages", message);
+        const res = await axios.post('http://localhost:5000/api/v1/messages/message/', message);
         setMessages([...messages, res.data])
         setNewMessage("");
       }catch(err){
@@ -127,7 +108,7 @@ export default function Messenger()
             onChange={(e)=> setNewMessage(e.target.value)}
             value = {newMessage}
             ></textarea>
-          <button className="chatSubmitButton"  >
+          <button className="chatSubmitButton"  onClick = {handleSubmit}>
             Send
             </button>
         </div></> : <span className="noConversationText">Open a conversation to start a chat</span>}
