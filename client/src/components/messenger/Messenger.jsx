@@ -14,7 +14,7 @@ export default function Messenger()
 {
   const profile = JSON.parse(localStorage.getItem('profile'))
   const userId = profile.result._id
-  console.log(userId)
+  //console.log(userId)
  
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -27,7 +27,7 @@ export default function Messenger()
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/conversations/conversation/?userId=${userId}`)
         .then(res => {
-          console.log(res.data)
+         // console.log(res.data)
           setConversations(conversations.concat(res.data));
         })
       }, [])
@@ -44,18 +44,37 @@ export default function Messenger()
     //   getConversations();
     // }, [userId]);
 
-     console.log(conversations)
+
     useEffect(() => {
-      const getMessages = async () =>{
-        try{
-          const res = await axios.get("/messages/"+currentChat?._id)
-          setMessages(res.data);
-        } catch (err){
-        console.log(err);
-          }
-        };
-        getMessages()
-    }, [currentChat]) 
+     axios.get('http://localhost:5000/api/v1/messages/message/', {
+        params: {
+          conversationId: currentChat?._id
+        }
+      }).then(response  => {
+        console.log(response.data)
+        setMessages(response.data)
+      })
+    }, [currentChat])
+     //console.log(conversations)
+    // console.log(currentChat?._id)
+
+    // useEffect(() => {
+    //   console.log(currentChat?._id)
+
+    //   const getMessages = async () =>{
+    //     try{
+    //       const res = await axios.get('http://localhost:5000/api/v1/messages/message/', {
+    //         params: {
+    //           conversationId: currentChat?._id
+    //         }
+    //       })
+    //       setMessages(res.data);
+    //     } catch (err){
+    //     console.log(err);
+    //       }
+    //     };
+    //     getMessages()
+    // }, [currentChat]) 
 
     const handleSubmit = async(e) => {
       e.preventDefault();
@@ -72,7 +91,7 @@ export default function Messenger()
         console.log(err);
       }
     }
-   console.log(userId)
+   //console.log(userId)
     return (
   <>
   <Topbar />
@@ -108,7 +127,7 @@ export default function Messenger()
             onChange={(e)=> setNewMessage(e.target.value)}
             value = {newMessage}
             ></textarea>
-          <button className="chatSubmitButton" onClick >
+          <button className="chatSubmitButton"  >
             Send
             </button>
         </div></> : <span className="noConversationText">Open a conversation to start a chat</span>}
