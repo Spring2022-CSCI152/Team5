@@ -14,7 +14,7 @@ export default class ConvoCtrl{
     }
     static async apiGetConvoOfUser(req, res, next){
         try{      
-            console.log(req.query.userId)
+            //console.log(req.query.userId)
             const user = req.query.userId
             const result = await conversationsDAO.getConvo(user);
             res.status(200).json(result);

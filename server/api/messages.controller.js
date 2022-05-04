@@ -15,9 +15,10 @@ export default class MessageCtrl{
 
     static async getOldMessage(req, res, next){
         try{
-            console.log(req.body.conversationId)
-            const convId = req.body.conversationId
+            //console.log(req.query.conversationId)
+            const convId = req.query.conversationId
             const result = await messagesDAO.getOldMessages(convId);
+            //console.log(result)
             res.status(200).json(result)
         }catch (e){
             res.status(500).json({ error: e.message })
