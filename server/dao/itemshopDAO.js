@@ -63,7 +63,8 @@ export default class ItemShopDAO {
             }
 
             await items.insertOne(itemDoc)
-            const item = await this.getItems
+            const item = itemDoc
+
             return item
         } catch (e) {
             console.error(`Unable to add item: ${e}`)

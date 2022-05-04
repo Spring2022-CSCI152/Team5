@@ -71,16 +71,16 @@ describe("apiGetItems",function(){
 describe("apiAddItem",function(){
     it("Successfully adds the item to the itemshop when the name,type, and cost are in the request",function(done){
         var json = {
-            "name":"Diamond Axe",
+            "name":"Platinum Axe",
             "type":"weapon",
-            "cost":"200"
+            "cost":"500"
         }
         chai.request(url)
         .post(path).set("content-type","application/json")
         .send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
-            expect1(response.body.newItem.itemsList.filter(function(item){return item.name == "Diamond Axe"})[0].name).to.be.equal("Diamond Axe")
-            itemId = response.body.newItem.itemsList.filter(function(item){return item.name == "Diamond Axe"})[0]._id
+            expect1(response.body.newItem.itemsList.filter(function(item){return item.name == "Platinum Axe"})[0].name).to.be.equal("Platinum Axe")
+            itemId = response.body.newItem.itemsList.filter(function(item){return item.name == "Platinum Axe"})[0]._id
             done()
         })
     })
@@ -125,9 +125,9 @@ describe("apiAddItem",function(){
     })
     it("Returns a 400 with the message,Item already exists., when name is a duplicate",function(done){
         var json = {
-            "name":"Diamond Axe",
+            "name":"Platinum Axe",
             "type":"weapon",
-            "cost":"200"
+            "cost":"500"
         }
         chai.request(url)
         .post(path).set("content-type","application/json")

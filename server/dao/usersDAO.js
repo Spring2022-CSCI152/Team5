@@ -79,7 +79,7 @@ export default class UsersDAO {
             }
 
             await users.insertOne(userDoc)
-
+            
             return userDoc
         } catch (e) {
             console.error(`Unable to add user: ${e}`)

@@ -131,7 +131,11 @@ export default class ItemShopCtrl {
                     res.status(400).json("Please use a correct item id")
                     return
                 }
-                res.json({ status: "success"})
+                if(itemDeleteResponse.deletedCount > 0){
+                    res.json({ status: "success"})
+                } else {
+                    res.status(400).json("Could not find item to delete")
+                }
             }
         } catch (e) {
             res.status(500).json({ error: e.message })
