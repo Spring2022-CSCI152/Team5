@@ -6,5 +6,7 @@ import { useContext } from "react";
 //import { AuthContext } from "../../context/AuthContext";
 
 export default function Topbar() {
-  return "Message Your Friends(Search Friend Here)";
+  return(
+    null
+  )
 }

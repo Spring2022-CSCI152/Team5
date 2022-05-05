@@ -6,12 +6,16 @@ import Message from "../../components/message/Message";
 import chatOnline from "../../components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from 'react';
 import axios from "axios";
+import Search from '../SearchBar/search';
+
+
 
 export default function Messenger()
 {
   const profile = JSON.parse(localStorage.getItem('profile'))
   const userId = profile.result._id
  
+
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -52,10 +56,11 @@ export default function Messenger()
     return (
   <>
   <Topbar />
+  <div  style={{"font-family": "San Francisco","font-weight": "900","font-size": "50px"}} className = "titleTop">Messages</div>
+  <Search/>
   <div className="messenger">
     <div className="chatMenu">
       <div className="chatMenuWrapper">
-        <input placeholder="Search Friend" className="chatMenuInput" />
         {conversations.map((c)=>(
           <div onClick={()=> setCurrentChat(c)}>
           <Conversation conversation={c} currentUserId={userId}/>

@@ -100,3 +100,13 @@
       display: none;
     }
   }
+
+  .TopBarFriends{
+    font-family: Garamond, serif;
+    font-size: 40px;
+    border-radius: 20px;
+    max-width: 300px;
+    margin: 0;
+    padding: 0;
+    overflow-x:hidden;
+  }
