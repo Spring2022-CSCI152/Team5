@@ -12,18 +12,7 @@ let convos
 
 export default class ConversationsDAO{
   
-  static async pracInsert(senderId,recieverId){
-    try{
-        const newconversation = new CM ({
-          members: [senderId,recieverId]
-        })
-        const savedconvo = await newconversation.save();
-        return savedconvo
-    }catch (e){
-      console.error(`Unable to add user: ${e}`)
-      return { error: e }
-    }
-  }
+  
 //router.post("/", async (req, res) => {
   static async injectDB(conn) {
     if (convos) {

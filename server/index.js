@@ -9,7 +9,8 @@ import ItemShopDAO from "./dao/itemshopDAO.js"
 import conversationsDAO from "./routes/conversationsDAO.js"
 import messagesDAO  from "./routes/messagesDAO.js"
 import InventoryDAO from "./dao/inventoryDAO.js"
-
+import groupupDAO from "./dao/groupupDAO.js"
+import notifyDAO from "./dao/notifyDAO.js"
 
 dotenv.config()
 const MongoClient = mongodb.MongoClient
@@ -36,6 +37,8 @@ MongoClient.connect(
     await InventoryDAO.injectDB(client)
     await conversationsDAO.injectDB(client)
     await messagesDAO.injectDB(client)
+    await groupupDAO.injectDB(client)
+    await notifyDAO.injectDB(client)
     app.listen(port, () => {
         console.log(`listening on port ${port}`)
     })
