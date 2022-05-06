@@ -49,7 +49,7 @@ export default class groupupDAO{
     }
     static async deleteGroup(senderId){
         try{
-            let query  = {members: {$in: [userId] } }
+            let query  = {members: {$in: [senderId] } }
             const deleted = await groups.deleteOne(query)
             return deleted;
         }catch(e){
