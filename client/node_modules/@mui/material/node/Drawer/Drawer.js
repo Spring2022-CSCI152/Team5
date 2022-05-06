@@ -157,7 +157,7 @@ function getAnchor(theme, anchor) {
   return theme.direction === 'rtl' && isHorizontal(anchor) ? oppositeDirection[anchor] : anchor;
 }
 /**
- * The props of the [Modal](/api/modal/) component are available
+ * The props of the [Modal](/material-ui/api/modal/) component are available
  * when `variant="temporary"` is set.
  */
 
@@ -309,7 +309,7 @@ process.env.NODE_ENV !== "production" ? Drawer.propTypes
   hideBackdrop: _propTypes.default.bool,
 
   /**
-   * Props applied to the [`Modal`](/api/modal/) element.
+   * Props applied to the [`Modal`](/material-ui/api/modal/) element.
    * @default {}
    */
   ModalProps: _propTypes.default.object,
@@ -328,13 +328,13 @@ process.env.NODE_ENV !== "production" ? Drawer.propTypes
   open: _propTypes.default.bool,
 
   /**
-   * Props applied to the [`Paper`](/api/paper/) element.
+   * Props applied to the [`Paper`](/material-ui/api/paper/) element.
    * @default {}
    */
   PaperProps: _propTypes.default.object,
 
   /**
-   * Props applied to the [`Slide`](/api/slide/) element.
+   * Props applied to the [`Slide`](/material-ui/api/slide/) element.
    */
   SlideProps: _propTypes.default.object,
 

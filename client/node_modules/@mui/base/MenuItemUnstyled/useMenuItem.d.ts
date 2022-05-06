@@ -5,7 +5,7 @@ export default function useMenuItem(props: UseMenuItemParameters): {
         role: string;
         'aria-disabled'?: (boolean | "false" | "true") | undefined;
         disabled?: boolean | undefined;
-        tabIndex: number;
+        tabIndex?: number | undefined;
         type?: "button" | "reset" | "submit" | undefined;
         onBlur: React.FocusEventHandler<Element>;
         onFocus: React.FocusEventHandler<Element>;

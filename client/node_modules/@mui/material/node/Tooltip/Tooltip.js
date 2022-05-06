@@ -827,7 +827,7 @@ process.env.NODE_ENV !== "production" ? Tooltip.propTypes
   PopperComponent: _propTypes.default.elementType,
 
   /**
-   * Props applied to the [`Popper`](/api/popper/) element.
+   * Props applied to the [`Popper`](/material-ui/api/popper/) element.
    * @default {}
    */
   PopperProps: _propTypes.default.object,
@@ -846,7 +846,7 @@ process.env.NODE_ENV !== "production" ? Tooltip.propTypes
 
   /**
    * The component used for the transition.
-   * [Follow this guide](/components/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
+   * [Follow this guide](/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
    * @default Grow
    */
   TransitionComponent: _propTypes.default.elementType,

@@ -13,7 +13,7 @@ var _utils = require("@mui/utils");
 
 var React = _interopRequireWildcard(require("react"));
 
-var _useFormControl = _interopRequireDefault(require("../FormControlUnstyled/useFormControl"));
+var _FormControlUnstyled = require("../FormControlUnstyled");
 
 var _extractEventHandlers = _interopRequireDefault(require("../utils/extractEventHandlers"));
 
@@ -23,7 +23,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 function useInput(props, inputRef) {
   const {
-    defaultValue,
+    defaultValue: defaultValueProp,
     disabled: disabledProp = false,
     error: errorProp = false,
     onBlur,
@@ -32,24 +32,35 @@ function useInput(props, inputRef) {
     required: requiredProp = false,
     value: valueProp
   } = props;
-  const formControlContext = (0, _useFormControl.default)();
-  let value;
-  let required;
+  const formControlContext = (0, _FormControlUnstyled.useFormControlUnstyledContext)();
+  let defaultValue;
   let disabled;
   let error;
+  let required;
+  let value;
 
   if (formControlContext) {
-    var _formControlContext$d, _formControlContext$r, _formControlContext$e;
+    var _formControlContext$d, _formControlContext$e, _formControlContext$r;
 
-    value = formControlContext.value;
+    defaultValue = undefined;
     disabled = (_formControlContext$d = formControlContext.disabled) != null ? _formControlContext$d : false;
-    required = (_formControlContext$r = formControlContext.required) != null ? _formControlContext$r : false;
     error = (_formControlContext$e = formControlContext.error) != null ? _formControlContext$e : false;
+    required = (_formControlContext$r = formControlContext.required) != null ? _formControlContext$r : false;
+    value = formControlContext.value;
+
+    if (process.env.NODE_ENV !== 'production') {
+      const definedLocalProps = ['defaultValue', 'disabled', 'error', 'required', 'value'].filter(prop => props[prop] !== undefined);
+
+      if (definedLocalProps.length > 0) {
+        console.warn(['MUI: You have set props on an input that is inside a FormControlUnstyled.', 'Set these props on a FormControlUnstyled instead. Otherwise they will be ignored.', `Ignored props: ${definedLocalProps.join(', ')}`].join('\n'));
+      }
+    }
   } else {
-    value = valueProp;
+    defaultValue = defaultValueProp;
     disabled = disabledProp;
-    required = requiredProp;
     error = errorProp;
+    required = requiredProp;
+    value = valueProp;
   }
 
   const {

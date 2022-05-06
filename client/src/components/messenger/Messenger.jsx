@@ -6,10 +6,10 @@ import Message from "../../components/message/Message";
 import chatOnline from "../../components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from 'react';
 import axios from "axios";
-
+import {io} from "socket.io-client"
 
 //import { useContext } from "react";
-
+const socket = io("ws://localhost:8900");
 export default function Messenger()
 {
   const profile = JSON.parse(localStorage.getItem('profile'))
@@ -19,31 +19,49 @@ export default function Messenger()
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
+  //const [socket, setSocket] = useState(null)
+  const socket = useRef();
+const [arrivalMessage, setArrivalMessage] = useState(null)
   const [newMessage, setNewMessage] =  useState("");
   //const { user } = useContext(AuthContext);
-  const scrollRef= useRef();
+  const scrollRef = useRef();
 
+  useEffect(() => {
+      socket.current = io("ws://localhost:8900");
+      socket.current.on("getMessage", data =>{
+        setArrivalMessage({
+          sender: data.senderId,
+          text: data.text,
+          
+        })
+      })
+  }, [] )
+
+  useEffect(() =>{
+    arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+    setMessages((prev)=> [...prev,arrivalMessage])
+  }, [arrivalMessage, currentChat])
+ useEffect(() => {
+   socket.current.emit("addUser", userId);
+   socket.current.on("getUsers", users =>{
+     console.log(users)
+   })
+ }, [userId])
+ // console.log(socket)
+  // useEffect(() => {
+  //   socket.on("welcome", (message) => {
+  //     console.log(message)
+     
+  //   })
+  // }, [socket]);
 
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/conversations/conversation/?userId=${userId}`)
         .then(res => {
-         // console.log(res.data)
           setConversations(conversations.concat(res.data));
         })
       }, [])
-    // useEffect(()  =>{
-    //   const getConversations = async ()=>{
-    //     try{
-    //       const res = await axios.get("http://localhost:5000/api/v1/conversations/conversation/"+userId)
-    //       //console.log(res)
-    //       setConversations(res.data);
-    //     }catch(err){
-    //       console.log(err);
-    //     }
-    //   };
-    //   getConversations();
-    // }, [userId]);
-
+  
 
     useEffect(() => {
      axios.get('http://localhost:5000/api/v1/messages/message/', {
@@ -64,6 +82,14 @@ export default function Messenger()
         text: newMessage,
         conversationId: currentChat._id,
       };
+      const receiverId = currentChat.members.find(
+        (member)=> member !== userId
+      );
+      socket.current.emit("sendMessage", {
+        senderId: userId,
+        receiverId,
+        text: newMessage
+      })
       try{
         const res = await axios.post('http://localhost:5000/api/v1/messages/message/', message);
         setMessages([...messages, res.data])
@@ -72,7 +98,6 @@ export default function Messenger()
         console.log(err);
       }
     }
-   //console.log(userId)
     return (
   <>
   <Topbar />

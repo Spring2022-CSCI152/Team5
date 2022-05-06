@@ -308,7 +308,7 @@ process.env.NODE_ENV !== "production" ? ListItem.propTypes
    * If `true`, the list item is focused during the first mount.
    * Focus will also be triggered if the value changes from false to true.
    * @default false
-   * @deprecated checkout [ListItemButton](/api/list-item-button/) instead
+   * @deprecated checkout [ListItemButton](/material-ui/api/list-item-button/) instead
    */
   autoFocus: _propTypes.default.bool,
 
@@ -316,7 +316,7 @@ process.env.NODE_ENV !== "production" ? ListItem.propTypes
    * If `true`, the list item is a button (using `ButtonBase`). Props intended
    * for `ButtonBase` can then be applied to `ListItem`.
    * @default false
-   * @deprecated checkout [ListItemButton](/api/list-item-button/) instead
+   * @deprecated checkout [ListItemButton](/material-ui/api/list-item-button/) instead
    */
   button: _propTypes.default.bool,
 
@@ -403,7 +403,7 @@ process.env.NODE_ENV !== "production" ? ListItem.propTypes
   /**
    * If `true`, the component is disabled.
    * @default false
-   * @deprecated checkout [ListItemButton](/api/list-item-button/) instead
+   * @deprecated checkout [ListItemButton](/material-ui/api/list-item-button/) instead
    */
   disabled: _propTypes.default.bool,
 
@@ -438,7 +438,7 @@ process.env.NODE_ENV !== "production" ? ListItem.propTypes
   /**
    * Use to apply selected styling.
    * @default false
-   * @deprecated checkout [ListItemButton](/api/list-item-button/) instead
+   * @deprecated checkout [ListItemButton](/material-ui/api/list-item-button/) instead
    */
   selected: _propTypes.default.bool,
 

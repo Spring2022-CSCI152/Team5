@@ -221,7 +221,7 @@ process.env.NODE_ENV !== "production" ? Breadcrumbs.propTypes
   /**
    * Override the default label for the expand button.
    *
-   * For localization purposes, you can use the provided [translations](/guides/localization/).
+   * For localization purposes, you can use the provided [translations](/material-ui/guides/localization/).
    * @default 'Show path'
    */
   expandText: _propTypes.default.string,

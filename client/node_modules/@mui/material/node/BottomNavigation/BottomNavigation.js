@@ -55,7 +55,7 @@ const BottomNavigationRoot = (0, _styled.default)('div', {
   display: 'flex',
   justifyContent: 'center',
   height: 56,
-  backgroundColor: theme.palette.background.paper
+  backgroundColor: (theme.vars || theme).palette.background.paper
 }));
 const BottomNavigation = /*#__PURE__*/React.forwardRef(function BottomNavigation(inProps, ref) {
   const props = (0, _useThemeProps.default)({

@@ -2,11 +2,11 @@ import _extends from "@babel/runtime/helpers/esm/extends";
 import { formatMuiErrorMessage as _formatMuiErrorMessage } from "@mui/utils";
 import * as React from 'react';
 import { unstable_useForkRef as useForkRef } from '@mui/utils';
-import useFormControl from '../FormControlUnstyled/useFormControl';
+import { useFormControlUnstyledContext } from '../FormControlUnstyled';
 import extractEventHandlers from '../utils/extractEventHandlers';
 export default function useInput(props, inputRef) {
   const {
-    defaultValue,
+    defaultValue: defaultValueProp,
     disabled: disabledProp = false,
     error: errorProp = false,
     onBlur,
@@ -15,22 +15,33 @@ export default function useInput(props, inputRef) {
     required: requiredProp = false,
     value: valueProp
   } = props;
-  const formControlContext = useFormControl();
-  let value;
-  let required;
+  const formControlContext = useFormControlUnstyledContext();
+  let defaultValue;
   let disabled;
   let error;
+  let required;
+  let value;
 
   if (formControlContext) {
-    value = formControlContext.value;
+    defaultValue = undefined;
     disabled = formControlContext.disabled ?? false;
-    required = formControlContext.required ?? false;
     error = formControlContext.error ?? false;
+    required = formControlContext.required ?? false;
+    value = formControlContext.value;
+
+    if (process.env.NODE_ENV !== 'production') {
+      const definedLocalProps = ['defaultValue', 'disabled', 'error', 'required', 'value'].filter(prop => props[prop] !== undefined);
+
+      if (definedLocalProps.length > 0) {
+        console.warn(['MUI: You have set props on an input that is inside a FormControlUnstyled.', 'Set these props on a FormControlUnstyled instead. Otherwise they will be ignored.', `Ignored props: ${definedLocalProps.join(', ')}`].join('\n'));
+      }
+    }
   } else {
-    value = valueProp;
+    defaultValue = defaultValueProp;
     disabled = disabledProp;
-    required = requiredProp;
     error = errorProp;
+    required = requiredProp;
+    value = valueProp;
   }
 
   const {

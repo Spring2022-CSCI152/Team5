@@ -1,7 +1,6 @@
 export { default } from './FormControlUnstyled';
-export { default as FormControlUnstyledContext } from './FormControlContext';
-export * from './FormControlContext';
-export type { default as FormControlUnstyledProps } from './FormControlUnstyledProps';
+export { default as FormControlUnstyledContext } from './FormControlUnstyledContext';
+export type { FormControlUnstyledProps, FormControlUnstyledComponentsPropsOverrides, FormControlUnstyledState, } from './FormControlUnstyled.types';
 export { default as formControlUnstyledClasses } from './formControlUnstyledClasses';
 export * from './formControlUnstyledClasses';
-export { default as useFormControlUnstyled } from './useFormControl';
+export { default as useFormControlUnstyledContext } from './useFormControlUnstyledContext';

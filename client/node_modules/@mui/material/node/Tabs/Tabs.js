@@ -843,7 +843,7 @@ process.env.NODE_ENV !== "production" ? Tabs.propTypes
   TabIndicatorProps: _propTypes.default.object,
 
   /**
-   * Props applied to the [`TabScrollButton`](/api/tab-scroll-button/) element.
+   * Props applied to the [`TabScrollButton`](/material-ui/api/tab-scroll-button/) element.
    * @default {}
    */
   TabScrollButtonProps: _propTypes.default.object,

@@ -248,12 +248,12 @@ process.env.NODE_ENV !== "production" ? StepLabel.propTypes
   optional: _propTypes.default.node,
 
   /**
-   * The component to render in place of the [`StepIcon`](/api/step-icon/).
+   * The component to render in place of the [`StepIcon`](/material-ui/api/step-icon/).
    */
   StepIconComponent: _propTypes.default.elementType,
 
   /**
-   * Props applied to the [`StepIcon`](/api/step-icon/) element.
+   * Props applied to the [`StepIcon`](/material-ui/api/step-icon/) element.
    */
   StepIconProps: _propTypes.default.object,
 

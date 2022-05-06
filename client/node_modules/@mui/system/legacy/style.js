@@ -5,10 +5,25 @@ import { handleBreakpoints } from './breakpoints';
 export function getPath(obj, path) {
   if (!path || typeof path !== 'string') {
     return null;
+  } // Check if CSS variables are used
+
+
+  if (obj && obj.vars) {
+    var val = "vars.".concat(path).split('.').reduce(function (acc, item) {
+      return acc && acc[item] ? acc[item] : null;
+    }, obj);
+
+    if (val != null) {
+      return val;
+    }
   }
 
   return path.split('.').reduce(function (acc, item) {
-    return acc && acc[item] ? acc[item] : null;
+    if (acc && acc[item] != null) {
+      return acc[item];
+    }
+
+    return null;
   }, obj);
 }
 

@@ -65,7 +65,7 @@ const AvatarGroupRoot = (0, _styled.default)('div', {
   theme
 }) => ({
   [`& .${_Avatar.avatarClasses.root}`]: {
-    border: `2px solid ${theme.palette.background.default}`,
+    border: `2px solid ${(theme.vars || theme).palette.background.default}`,
     boxSizing: 'content-box',
     marginLeft: -8,
     '&:last-child': {
@@ -82,7 +82,7 @@ const AvatarGroupAvatar = (0, _styled.default)(_Avatar.default, {
 })(({
   theme
 }) => ({
-  border: `2px solid ${theme.palette.background.default}`,
+  border: `2px solid ${(theme.vars || theme).palette.background.default}`,
   boxSizing: 'content-box',
   marginLeft: -8,
   '&:last-child': {

@@ -298,7 +298,7 @@ process.env.NODE_ENV !== "production" ? TablePagination.propTypes
   ActionsComponent: _propTypes.default.elementType,
 
   /**
-   * Props applied to the back arrow [`IconButton`](/api/icon-button/) component.
+   * Props applied to the back arrow [`IconButton`](/material-ui/api/icon-button/) component.
    */
   backIconButtonProps: _propTypes.default.object,
 
@@ -334,7 +334,7 @@ process.env.NODE_ENV !== "production" ? TablePagination.propTypes
    * Accepts a function which returns a string value that provides a user-friendly name for the current page.
    * This is important for screen reader users.
    *
-   * For localization purposes, you can use the provided [translations](/guides/localization/).
+   * For localization purposes, you can use the provided [translations](/material-ui/guides/localization/).
    * @param {string} type The link or button type to format ('first' | 'last' | 'next' | 'previous').
    * @returns {string}
    * @default function defaultGetAriaLabel(type) {
@@ -347,7 +347,7 @@ process.env.NODE_ENV !== "production" ? TablePagination.propTypes
    * Customize the displayed rows label. Invoked with a `{ from, to, count, page }`
    * object.
    *
-   * For localization purposes, you can use the provided [translations](/guides/localization/).
+   * For localization purposes, you can use the provided [translations](/material-ui/guides/localization/).
    * @default function defaultLabelDisplayedRows({ from, to, count }) {
    *   return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
    * }
@@ -357,13 +357,13 @@ process.env.NODE_ENV !== "production" ? TablePagination.propTypes
   /**
    * Customize the rows per page label.
    *
-   * For localization purposes, you can use the provided [translations](/guides/localization/).
+   * For localization purposes, you can use the provided [translations](/material-ui/guides/localization/).
    * @default 'Rows per page:'
    */
   labelRowsPerPage: _propTypes.default.node,
 
   /**
-   * Props applied to the next arrow [`IconButton`](/api/icon-button/) element.
+   * Props applied to the next arrow [`IconButton`](/material-ui/api/icon-button/) element.
    */
   nextIconButtonProps: _propTypes.default.object,
 
@@ -424,7 +424,7 @@ process.env.NODE_ENV !== "production" ? TablePagination.propTypes
   })]).isRequired),
 
   /**
-   * Props applied to the rows per page [`Select`](/api/select/) element.
+   * Props applied to the rows per page [`Select`](/material-ui/api/select/) element.
    * @default {}
    */
   SelectProps: _propTypes.default.object,

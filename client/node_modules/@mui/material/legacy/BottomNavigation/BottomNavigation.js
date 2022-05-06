@@ -30,7 +30,7 @@ var BottomNavigationRoot = styled('div', {
     display: 'flex',
     justifyContent: 'center',
     height: 56,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: (theme.vars || theme).palette.background.paper
   };
 });
 var BottomNavigation = /*#__PURE__*/React.forwardRef(function BottomNavigation(inProps, ref) {

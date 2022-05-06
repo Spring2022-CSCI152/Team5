@@ -2,10 +2,10 @@ import _extends from "@babel/runtime/helpers/esm/extends";
 import { formatMuiErrorMessage as _formatMuiErrorMessage } from "@mui/utils";
 import * as React from 'react';
 import { unstable_useForkRef as useForkRef } from '@mui/utils';
-import useFormControl from '../FormControlUnstyled/useFormControl';
+import { useFormControlUnstyledContext } from '../FormControlUnstyled';
 import extractEventHandlers from '../utils/extractEventHandlers';
 export default function useInput(props, inputRef) {
-  var defaultValue = props.defaultValue,
+  var defaultValueProp = props.defaultValue,
       _props$disabled = props.disabled,
       disabledProp = _props$disabled === void 0 ? false : _props$disabled,
       _props$error = props.error,
@@ -16,24 +16,37 @@ export default function useInput(props, inputRef) {
       _props$required = props.required,
       requiredProp = _props$required === void 0 ? false : _props$required,
       valueProp = props.value;
-  var formControlContext = useFormControl();
-  var value;
-  var required;
+  var formControlContext = useFormControlUnstyledContext();
+  var defaultValue;
   var disabled;
   var error;
+  var required;
+  var value;
 
   if (formControlContext) {
-    var _formControlContext$d, _formControlContext$r, _formControlContext$e;
+    var _formControlContext$d, _formControlContext$e, _formControlContext$r;
 
-    value = formControlContext.value;
+    defaultValue = undefined;
     disabled = (_formControlContext$d = formControlContext.disabled) != null ? _formControlContext$d : false;
-    required = (_formControlContext$r = formControlContext.required) != null ? _formControlContext$r : false;
     error = (_formControlContext$e = formControlContext.error) != null ? _formControlContext$e : false;
+    required = (_formControlContext$r = formControlContext.required) != null ? _formControlContext$r : false;
+    value = formControlContext.value;
+
+    if (process.env.NODE_ENV !== 'production') {
+      var definedLocalProps = ['defaultValue', 'disabled', 'error', 'required', 'value'].filter(function (prop) {
+        return props[prop] !== undefined;
+      });
+
+      if (definedLocalProps.length > 0) {
+        console.warn(['MUI: You have set props on an input that is inside a FormControlUnstyled.', 'Set these props on a FormControlUnstyled instead. Otherwise they will be ignored.', "Ignored props: ".concat(definedLocalProps.join(', '))].join('\n'));
+      }
+    }
   } else {
-    value = valueProp;
+    defaultValue = defaultValueProp;
     disabled = disabledProp;
-    required = requiredProp;
     error = errorProp;
+    required = requiredProp;
+    value = valueProp;
   }
 
   var _React$useRef = React.useRef(value != null),

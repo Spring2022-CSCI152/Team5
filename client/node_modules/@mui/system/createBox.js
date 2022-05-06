@@ -13,8 +13,6 @@ var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runt
 
 var React = _interopRequireWildcard(require("react"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _clsx = _interopRequireDefault(require("clsx"));
 
 var _styledEngine = _interopRequireDefault(require("@mui/styled-engine"));
@@ -56,29 +54,5 @@ function createBox(options = {}) {
       theme: theme
     }, other));
   });
-  process.env.NODE_ENV !== "production" ? Box.propTypes
-  /* remove-proptypes */
-  = {
-    // ----------------------------- Warning --------------------------------
-    // | These PropTypes are generated from the TypeScript type definitions |
-    // |     To update them edit the d.ts file and run "yarn proptypes"     |
-    // ----------------------------------------------------------------------
-
-    /**
-     * @ignore
-     */
-    children: _propTypes.default.node,
-
-    /**
-     * The component used for the root node.
-     * Either a string to use a HTML element or a component.
-     */
-    component: _propTypes.default.elementType,
-
-    /**
-     * @ignore
-     */
-    sx: _propTypes.default.oneOfType([_propTypes.default.object, _propTypes.default.array, _propTypes.default.func])
-  } : void 0;
   return Box;
 }

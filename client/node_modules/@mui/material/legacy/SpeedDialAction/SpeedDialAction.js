@@ -222,7 +222,7 @@ process.env.NODE_ENV !== "production" ? SpeedDialAction.propTypes
   delay: PropTypes.number,
 
   /**
-   * Props applied to the [`Fab`](/api/fab/) component.
+   * Props applied to the [`Fab`](/material-ui/api/fab/) component.
    * @default {}
    */
   FabProps: PropTypes.object,
@@ -249,7 +249,7 @@ process.env.NODE_ENV !== "production" ? SpeedDialAction.propTypes
   sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
 
   /**
-   * `classes` prop applied to the [`Tooltip`](/api/tooltip/) element.
+   * `classes` prop applied to the [`Tooltip`](/material-ui/api/tooltip/) element.
    */
   TooltipClasses: PropTypes.object,
 

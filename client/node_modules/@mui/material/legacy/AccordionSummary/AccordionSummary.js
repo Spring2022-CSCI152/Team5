@@ -47,9 +47,9 @@ var AccordionSummaryRoot = styled(ButtonBase, {
     padding: theme.spacing(0, 2),
     transition: theme.transitions.create(['min-height', 'background-color'], transition)
   }, _defineProperty(_extends2, "&.".concat(accordionSummaryClasses.focusVisible), {
-    backgroundColor: theme.palette.action.focus
+    backgroundColor: (theme.vars || theme).palette.action.focus
   }), _defineProperty(_extends2, "&.".concat(accordionSummaryClasses.disabled), {
-    opacity: theme.palette.action.disabledOpacity
+    opacity: (theme.vars || theme).palette.action.disabledOpacity
   }), _defineProperty(_extends2, "&:hover:not(.".concat(accordionSummaryClasses.disabled, ")"), {
     cursor: 'pointer'
   }), _extends2), !ownerState.disableGutters && _defineProperty({}, "&.".concat(accordionSummaryClasses.expanded), {
@@ -87,7 +87,7 @@ var AccordionSummaryExpandIconWrapper = styled('div', {
   var theme = _ref5.theme;
   return _defineProperty({
     display: 'flex',
-    color: theme.palette.action.active,
+    color: (theme.vars || theme).palette.action.active,
     transform: 'rotate(0deg)',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest

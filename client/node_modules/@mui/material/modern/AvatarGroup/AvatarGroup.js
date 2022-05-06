@@ -38,7 +38,7 @@ const AvatarGroupRoot = styled('div', {
   theme
 }) => ({
   [`& .${avatarClasses.root}`]: {
-    border: `2px solid ${theme.palette.background.default}`,
+    border: `2px solid ${(theme.vars || theme).palette.background.default}`,
     boxSizing: 'content-box',
     marginLeft: -8,
     '&:last-child': {
@@ -55,7 +55,7 @@ const AvatarGroupAvatar = styled(Avatar, {
 })(({
   theme
 }) => ({
-  border: `2px solid ${theme.palette.background.default}`,
+  border: `2px solid ${(theme.vars || theme).palette.background.default}`,
   boxSizing: 'content-box',
   marginLeft: -8,
   '&:last-child': {

@@ -35,15 +35,17 @@ var useUtilityClasses = function useUtilityClasses(ownerState) {
 var ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(props, forwardedRef) {
   var _ref, _componentsProps$root;
 
-  var className = props.className,
+  var action = props.action,
+      children = props.children,
+      className = props.className,
       component = props.component,
       _props$components = props.components,
       components = _props$components === void 0 ? {} : _props$components,
       _props$componentsProp = props.componentsProps,
       componentsProps = _props$componentsProp === void 0 ? {} : _props$componentsProp,
-      children = props.children,
       disabled = props.disabled,
-      action = props.action,
+      _props$focusableWhenD = props.focusableWhenDisabled,
+      focusableWhenDisabled = _props$focusableWhenD === void 0 ? false : _props$focusableWhenD,
       onBlur = props.onBlur,
       onClick = props.onClick,
       onFocus = props.onFocus,
@@ -51,7 +53,7 @@ var ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(props
       onKeyDown = props.onKeyDown,
       onKeyUp = props.onKeyUp,
       onMouseLeave = props.onMouseLeave,
-      other = _objectWithoutProperties(props, ["className", "component", "components", "componentsProps", "children", "disabled", "action", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseLeave"]);
+      other = _objectWithoutProperties(props, ["action", "children", "className", "component", "components", "componentsProps", "disabled", "focusableWhenDisabled", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseLeave"]);
 
   var buttonRef = React.useRef();
   var handleRef = useForkRef(buttonRef, forwardedRef);
@@ -59,6 +61,7 @@ var ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(props
 
   var _useButton = useButton(_extends({}, props, {
     component: ButtonRoot,
+    focusableWhenDisabled: focusableWhenDisabled,
     ref: handleRef
   })),
       active = _useButton.active,
@@ -77,6 +80,7 @@ var ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(props
 
   var ownerState = _extends({}, props, {
     active: active,
+    focusableWhenDisabled: focusableWhenDisabled,
     focusVisible: focusVisible
   });
 
@@ -144,6 +148,12 @@ process.env.NODE_ENV !== "production" ? ButtonUnstyled.propTypes
    * @default false
    */
   disabled: PropTypes.bool,
+
+  /**
+   * If `true`, allows a disabled button to receive focus.
+   * @default false
+   */
+  focusableWhenDisabled: PropTypes.bool,
 
   /**
    * @ignore

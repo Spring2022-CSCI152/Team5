@@ -29,7 +29,7 @@ var _appendOwnerState = _interopRequireDefault(require("../utils/appendOwnerStat
 
 var _jsxRuntime = require("react/jsx-runtime");
 
-const _excluded = ["className", "component", "components", "componentsProps", "children", "disabled", "action", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseLeave"];
+const _excluded = ["action", "children", "className", "component", "components", "componentsProps", "disabled", "focusableWhenDisabled", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseLeave"];
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -63,12 +63,13 @@ const ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(pro
   var _ref, _componentsProps$root;
 
   const {
+    action,
+    children,
     className,
     component,
     components = {},
     componentsProps = {},
-    children,
-    action
+    focusableWhenDisabled = false
   } = props,
         other = (0, _objectWithoutPropertiesLoose2.default)(props, _excluded);
   const buttonRef = React.useRef();
@@ -81,6 +82,7 @@ const ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(pro
     getRootProps
   } = (0, _useButton.default)((0, _extends2.default)({}, props, {
     component: ButtonRoot,
+    focusableWhenDisabled,
     ref: handleRef
   }));
   React.useImperativeHandle(action, () => ({
@@ -91,6 +93,7 @@ const ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(pro
   }), [setFocusVisible]);
   const ownerState = (0, _extends2.default)({}, props, {
     active,
+    focusableWhenDisabled,
     focusVisible
   });
   const classes = useUtilityClasses(ownerState);
@@ -157,6 +160,12 @@ process.env.NODE_ENV !== "production" ? ButtonUnstyled.propTypes
    * @default false
    */
   disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, allows a disabled button to receive focus.
+   * @default false
+   */
+  focusableWhenDisabled: _propTypes.default.bool,
 
   /**
    * @ignore

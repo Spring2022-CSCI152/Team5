@@ -8,12 +8,12 @@ Object.defineProperty(exports, "__esModule", {
 var _exportNames = {
   FormControlUnstyledContext: true,
   formControlUnstyledClasses: true,
-  useFormControlUnstyled: true
+  useFormControlUnstyledContext: true
 };
 Object.defineProperty(exports, "FormControlUnstyledContext", {
   enumerable: true,
   get: function () {
-    return _FormControlContext.default;
+    return _FormControlUnstyledContext.default;
   }
 });
 Object.defineProperty(exports, "default", {
@@ -28,28 +28,16 @@ Object.defineProperty(exports, "formControlUnstyledClasses", {
     return _formControlUnstyledClasses.default;
   }
 });
-Object.defineProperty(exports, "useFormControlUnstyled", {
+Object.defineProperty(exports, "useFormControlUnstyledContext", {
   enumerable: true,
   get: function () {
-    return _useFormControl.default;
+    return _useFormControlUnstyledContext.default;
   }
 });
 
 var _FormControlUnstyled = _interopRequireDefault(require("./FormControlUnstyled"));
 
-var _FormControlContext = _interopRequireWildcard(require("./FormControlContext"));
-
-Object.keys(_FormControlContext).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _FormControlContext[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _FormControlContext[key];
-    }
-  });
-});
+var _FormControlUnstyledContext = _interopRequireDefault(require("./FormControlUnstyledContext"));
 
 var _formControlUnstyledClasses = _interopRequireWildcard(require("./formControlUnstyledClasses"));
 
@@ -65,7 +53,7 @@ Object.keys(_formControlUnstyledClasses).forEach(function (key) {
   });
 });
 
-var _useFormControl = _interopRequireDefault(require("./useFormControl"));
+var _useFormControlUnstyledContext = _interopRequireDefault(require("./useFormControlUnstyledContext"));
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 

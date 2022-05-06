@@ -70,10 +70,10 @@ const AccordionSummaryRoot = (0, _styled.default)(_ButtonBase.default, {
     padding: theme.spacing(0, 2),
     transition: theme.transitions.create(['min-height', 'background-color'], transition),
     [`&.${_accordionSummaryClasses.default.focusVisible}`]: {
-      backgroundColor: theme.palette.action.focus
+      backgroundColor: (theme.vars || theme).palette.action.focus
     },
     [`&.${_accordionSummaryClasses.default.disabled}`]: {
-      opacity: theme.palette.action.disabledOpacity
+      opacity: (theme.vars || theme).palette.action.disabledOpacity
     },
     [`&:hover:not(.${_accordionSummaryClasses.default.disabled})`]: {
       cursor: 'pointer'
@@ -111,7 +111,7 @@ const AccordionSummaryExpandIconWrapper = (0, _styled.default)('div', {
   theme
 }) => ({
   display: 'flex',
-  color: theme.palette.action.active,
+  color: (theme.vars || theme).palette.action.active,
   transform: 'rotate(0deg)',
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest

@@ -13,9 +13,9 @@ var _generateUtilityClass = _interopRequireDefault(require("../generateUtilityCl
 var _generateUtilityClasses = _interopRequireDefault(require("../generateUtilityClasses"));
 
 function getFormControlUnstyledUtilityClasses(slot) {
-  return (0, _generateUtilityClass.default)('MuiFormControl', slot);
+  return (0, _generateUtilityClass.default)('BaseFormControl', slot);
 }
 
-const formControlUnstyledClasses = (0, _generateUtilityClasses.default)('MuiFormControl', ['root', 'disabled']);
+const formControlUnstyledClasses = (0, _generateUtilityClasses.default)('BaseFormControl', ['root', 'disabled', 'error', 'filled', 'focused', 'required']);
 var _default = formControlUnstyledClasses;
 exports.default = _default;

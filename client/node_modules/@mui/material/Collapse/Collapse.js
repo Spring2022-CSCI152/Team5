@@ -87,7 +87,7 @@ const CollapseWrapperInner = styled('div', {
 }));
 /**
  * The Collapse transition is used by the
- * [Vertical Stepper](/components/steppers/#vertical-stepper) StepContent component.
+ * [Vertical Stepper](/material-ui/react-stepper/#vertical-stepper) StepContent component.
  * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
  */
 

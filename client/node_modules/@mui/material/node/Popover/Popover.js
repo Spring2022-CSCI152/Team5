@@ -477,7 +477,7 @@ process.env.NODE_ENV !== "production" ? Popover.propTypes
   open: _propTypes.default.bool.isRequired,
 
   /**
-   * Props applied to the [`Paper`](/api/paper/) element.
+   * Props applied to the [`Paper`](/material-ui/api/paper/) element.
    * @default {}
    */
   PaperProps: _propTypes.default
@@ -510,7 +510,7 @@ process.env.NODE_ENV !== "production" ? Popover.propTypes
 
   /**
    * The component used for the transition.
-   * [Follow this guide](/components/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
+   * [Follow this guide](/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
    * @default Grow
    */
   TransitionComponent: _propTypes.default.elementType,

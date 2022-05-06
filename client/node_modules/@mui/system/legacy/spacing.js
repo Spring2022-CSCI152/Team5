@@ -50,7 +50,9 @@ var marginKeys = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my', 'margin', 'marginTop'
 var paddingKeys = ['p', 'pt', 'pr', 'pb', 'pl', 'px', 'py', 'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft', 'paddingX', 'paddingY', 'paddingInline', 'paddingInlineStart', 'paddingInlineEnd', 'paddingBlock', 'paddingBlockStart', 'paddingBlockEnd'];
 var spacingKeys = [].concat(marginKeys, paddingKeys);
 export function createUnaryUnit(theme, themeKey, defaultValue, propName) {
-  var themeSpacing = getPath(theme, themeKey) || defaultValue;
+  var _getPath;
+
+  var themeSpacing = (_getPath = getPath(theme, themeKey)) != null ? _getPath : defaultValue;
 
   if (typeof themeSpacing === 'number') {
     return function (abs) {

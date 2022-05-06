@@ -1,7 +1,7 @@
 import generateUtilityClass from '../generateUtilityClass';
 import generateUtilityClasses from '../generateUtilityClasses';
 export function getFormControlUnstyledUtilityClasses(slot) {
-  return generateUtilityClass('MuiFormControl', slot);
+  return generateUtilityClass('BaseFormControl', slot);
 }
-const formControlUnstyledClasses = generateUtilityClasses('MuiFormControl', ['root', 'disabled']);
+const formControlUnstyledClasses = generateUtilityClasses('BaseFormControl', ['root', 'disabled', 'error', 'filled', 'focused', 'required']);
 export default formControlUnstyledClasses;

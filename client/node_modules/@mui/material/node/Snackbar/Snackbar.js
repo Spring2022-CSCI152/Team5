@@ -389,7 +389,7 @@ process.env.NODE_ENV !== "production" ? Snackbar.propTypes
   ClickAwayListenerProps: _propTypes.default.object,
 
   /**
-   * Props applied to the [`SnackbarContent`](/api/snackbar-content/) element.
+   * Props applied to the [`SnackbarContent`](/material-ui/api/snackbar-content/) element.
    */
   ContentProps: _propTypes.default.object,
 
@@ -464,7 +464,7 @@ process.env.NODE_ENV !== "production" ? Snackbar.propTypes
 
   /**
    * The component used for the transition.
-   * [Follow this guide](/components/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
+   * [Follow this guide](/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
    * @default Grow
    */
   TransitionComponent: _propTypes.default.elementType,

@@ -6,9 +6,10 @@ export default function useButton(parameters) {
   const {
     component = 'button',
     disabled = false,
+    focusableWhenDisabled,
     href,
     ref,
-    tabIndex = 0,
+    tabIndex,
     to,
     type
   } = parameters;
@@ -22,7 +23,7 @@ export default function useButton(parameters) {
   } = useIsFocusVisible();
   const [focusVisible, setFocusVisible] = React.useState(false);
 
-  if (disabled && focusVisible) {
+  if (disabled && !focusableWhenDisabled && focusVisible) {
     setFocusVisible(false);
   }
 
@@ -140,14 +141,21 @@ export default function useButton(parameters) {
 
   if (hostElementName === 'BUTTON') {
     buttonProps.type = type ?? 'button';
-    buttonProps.disabled = disabled;
+
+    if (focusableWhenDisabled) {
+      buttonProps['aria-disabled'] = disabled;
+    } else {
+      buttonProps.disabled = disabled;
+    }
   } else if (hostElementName !== '') {
     if (!href && !to) {
       buttonProps.role = 'button';
+      buttonProps.tabIndex = tabIndex ?? 0;
     }
 
     if (disabled) {
       buttonProps['aria-disabled'] = disabled;
+      buttonProps.tabIndex = focusableWhenDisabled ? tabIndex ?? 0 : -1;
     }
   }
 
@@ -160,7 +168,6 @@ export default function useButton(parameters) {
 
     delete externalEventHandlers.onFocusVisible;
     return _extends({
-      tabIndex: disabled ? -1 : tabIndex,
       type
     }, externalEventHandlers, buttonProps, {
       onBlur: createHandleBlur(externalEventHandlers),

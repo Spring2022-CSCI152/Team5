@@ -384,7 +384,7 @@ const SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, re
     }
   }
 
-  const items = childrenArray.map(child => {
+  const items = childrenArray.map((child, index, arr) => {
     if (! /*#__PURE__*/React.isValidElement(child)) {
       return null;
     }
@@ -419,6 +419,27 @@ const SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, re
       foundMatch = true;
     }
 
+    if (child.props.value === undefined) {
+      return /*#__PURE__*/React.cloneElement(child, {
+        'aria-readonly': true,
+        role: 'option'
+      });
+    }
+
+    const isFirstSelectableElement = () => {
+      if (value) {
+        return selected;
+      }
+
+      const firstSelectableElement = arr.find(item => item.props.value !== undefined && item.props.disabled !== true);
+
+      if (child === firstSelectableElement) {
+        return true;
+      }
+
+      return selected;
+    };
+
     return /*#__PURE__*/React.cloneElement(child, {
       'aria-selected': selected ? 'true' : 'false',
       onClick: handleItemClick(child),
@@ -435,7 +456,7 @@ const SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, re
         }
       },
       role: 'option',
-      selected,
+      selected: arr[0].props.value === undefined || arr[0].props.disabled === true ? isFirstSelectableElement() : selected,
       value: undefined,
       // The value is most likely not a valid HTML attribute.
       'data-value': child.props.value // Instead, we provide it as a data attribute.
@@ -641,7 +662,7 @@ process.env.NODE_ENV !== "production" ? SelectInput.propTypes = {
   labelId: _propTypes.default.string,
 
   /**
-   * Props applied to the [`Menu`](/api/menu/) element.
+   * Props applied to the [`Menu`](/material-ui/api/menu/) element.
    */
   MenuProps: _propTypes.default.object,
 

@@ -27,7 +27,7 @@ declare const useTab: (props: UseTabProps) => {
         disabled: boolean;
         onClick: (event: React.MouseEvent<Element, MouseEvent>) => void;
         'aria-disabled'?: (boolean | "false" | "true") | undefined;
-        tabIndex: number;
+        tabIndex?: number | undefined;
         type?: "button" | "reset" | "submit" | undefined;
         onBlur: import("react").FocusEventHandler<Element>;
         onFocus: import("react").FocusEventHandler<Element>;

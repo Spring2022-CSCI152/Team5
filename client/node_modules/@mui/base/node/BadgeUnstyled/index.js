@@ -17,10 +17,10 @@ Object.defineProperty(exports, "default", {
     return _BadgeUnstyled.default;
   }
 });
-Object.defineProperty(exports, "getBadgeUtilityClass", {
+Object.defineProperty(exports, "getBadgeUnstyledUtilityClass", {
   enumerable: true,
   get: function () {
-    return _badgeUnstyledClasses.getBadgeUtilityClass;
+    return _badgeUnstyledClasses.getBadgeUnstyledUtilityClass;
   }
 });
 Object.defineProperty(exports, "useBadge", {

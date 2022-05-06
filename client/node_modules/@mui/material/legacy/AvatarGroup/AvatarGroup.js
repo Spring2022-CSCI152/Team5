@@ -37,7 +37,7 @@ var AvatarGroupRoot = styled('div', {
 
   var theme = _ref.theme;
   return _ref2 = {}, _defineProperty(_ref2, "& .".concat(avatarClasses.root), {
-    border: "2px solid ".concat(theme.palette.background.default),
+    border: "2px solid ".concat((theme.vars || theme).palette.background.default),
     boxSizing: 'content-box',
     marginLeft: -8,
     '&:last-child': {
@@ -54,7 +54,7 @@ var AvatarGroupAvatar = styled(Avatar, {
 })(function (_ref3) {
   var theme = _ref3.theme;
   return {
-    border: "2px solid ".concat(theme.palette.background.default),
+    border: "2px solid ".concat((theme.vars || theme).palette.background.default),
     boxSizing: 'content-box',
     marginLeft: -8,
     '&:last-child': {

@@ -235,7 +235,7 @@ process.env.NODE_ENV !== "production" ? Menu.propTypes
   disableAutoFocusItem: PropTypes.bool,
 
   /**
-   * Props applied to the [`MenuList`](/api/menu-list/) element.
+   * Props applied to the [`MenuList`](/material-ui/api/menu-list/) element.
    * @default {}
    */
   MenuListProps: PropTypes.object,
@@ -259,7 +259,7 @@ process.env.NODE_ENV !== "production" ? Menu.propTypes
   PaperProps: PropTypes.object,
 
   /**
-   * `classes` prop applied to the [`Popover`](/api/popover/) element.
+   * `classes` prop applied to the [`Popover`](/material-ui/api/popover/) element.
    */
   PopoverClasses: PropTypes.object,
 

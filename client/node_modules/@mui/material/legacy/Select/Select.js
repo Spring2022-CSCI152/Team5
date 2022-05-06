@@ -216,7 +216,7 @@ process.env.NODE_ENV !== "production" ? Select.propTypes
   inputProps: PropTypes.object,
 
   /**
-   * See [OutlinedInput#label](/api/outlined-input/#props)
+   * See [OutlinedInput#label](/material-ui/api/outlined-input/#props)
    */
   label: PropTypes.node,
 
@@ -227,7 +227,7 @@ process.env.NODE_ENV !== "production" ? Select.propTypes
   labelId: PropTypes.string,
 
   /**
-   * Props applied to the [`Menu`](/api/menu/) element.
+   * Props applied to the [`Menu`](/material-ui/api/menu/) element.
    */
   MenuProps: PropTypes.object,
 

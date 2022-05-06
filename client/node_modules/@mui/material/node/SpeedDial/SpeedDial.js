@@ -485,7 +485,7 @@ process.env.NODE_ENV !== "production" ? SpeedDial.propTypes
   direction: _propTypes.default.oneOf(['down', 'left', 'right', 'up']),
 
   /**
-   * Props applied to the [`Fab`](/api/fab/) element.
+   * Props applied to the [`Fab`](/material-ui/api/fab/) element.
    * @default {}
    */
   FabProps: _propTypes.default.object,
@@ -560,7 +560,7 @@ process.env.NODE_ENV !== "production" ? SpeedDial.propTypes
 
   /**
    * The component used for the transition.
-   * [Follow this guide](/components/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
+   * [Follow this guide](/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
    * @default Zoom
    */
   TransitionComponent: _propTypes.default.elementType,

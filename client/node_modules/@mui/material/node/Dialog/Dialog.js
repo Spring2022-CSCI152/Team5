@@ -380,6 +380,7 @@ process.env.NODE_ENV !== "production" ? Dialog.propTypes
 
   /**
    * Callback fired when the backdrop is clicked.
+   * @deprecated Use the `onClose` prop with the `reason` argument to handle the `backdropClick` events.
    */
   onBackdropClick: _propTypes.default.func,
 
@@ -403,7 +404,7 @@ process.env.NODE_ENV !== "production" ? Dialog.propTypes
   PaperComponent: _propTypes.default.elementType,
 
   /**
-   * Props applied to the [`Paper`](/api/paper/) element.
+   * Props applied to the [`Paper`](/material-ui/api/paper/) element.
    * @default {}
    */
   PaperProps: _propTypes.default.object,
@@ -421,7 +422,7 @@ process.env.NODE_ENV !== "production" ? Dialog.propTypes
 
   /**
    * The component used for the transition.
-   * [Follow this guide](/components/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
+   * [Follow this guide](/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
    * @default Fade
    */
   TransitionComponent: _propTypes.default.elementType,

@@ -1,7 +1,6 @@
 import _extends from "@babel/runtime/helpers/esm/extends";
 import _objectWithoutProperties from "@babel/runtime/helpers/esm/objectWithoutProperties";
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import styled from '@mui/styled-engine';
 import defaultStyleFunctionSx, { extendSxProp } from './styleFunctionSx';
@@ -32,29 +31,5 @@ export default function createBox() {
       theme: theme
     }, other));
   });
-  process.env.NODE_ENV !== "production" ? Box.propTypes
-  /* remove-proptypes */
-  = {
-    // ----------------------------- Warning --------------------------------
-    // | These PropTypes are generated from the TypeScript type definitions |
-    // |     To update them edit the d.ts file and run "yarn proptypes"     |
-    // ----------------------------------------------------------------------
-
-    /**
-     * @ignore
-     */
-    children: PropTypes.node,
-
-    /**
-     * The component used for the root node.
-     * Either a string to use a HTML element or a component.
-     */
-    component: PropTypes.elementType,
-
-    /**
-     * @ignore
-     */
-    sx: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.func])
-  } : void 0;
   return Box;
 }

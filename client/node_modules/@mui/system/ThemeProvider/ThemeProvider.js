@@ -57,7 +57,14 @@ function ThemeProvider(props) {
   });
 }
 
-process.env.NODE_ENV !== "production" ? ThemeProvider.propTypes = {
+process.env.NODE_ENV !== "production" ? ThemeProvider.propTypes
+/* remove-proptypes */
+= {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
   /**
    * Your component tree.
    */
@@ -66,7 +73,7 @@ process.env.NODE_ENV !== "production" ? ThemeProvider.propTypes = {
   /**
    * A theme object. You can provide a function to extend the outer theme.
    */
-  theme: _propTypes.default.oneOfType([_propTypes.default.object, _propTypes.default.func]).isRequired
+  theme: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.object]).isRequired
 } : void 0;
 
 if (process.env.NODE_ENV !== 'production') {

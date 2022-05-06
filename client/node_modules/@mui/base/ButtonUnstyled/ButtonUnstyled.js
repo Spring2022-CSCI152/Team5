@@ -1,6 +1,6 @@
 import _extends from "@babel/runtime/helpers/esm/extends";
 import _objectWithoutPropertiesLoose from "@babel/runtime/helpers/esm/objectWithoutPropertiesLoose";
-const _excluded = ["className", "component", "components", "componentsProps", "children", "disabled", "action", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseLeave"];
+const _excluded = ["action", "children", "className", "component", "components", "componentsProps", "disabled", "focusableWhenDisabled", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseLeave"];
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -39,12 +39,13 @@ const ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(pro
   var _ref, _componentsProps$root;
 
   const {
+    action,
+    children,
     className,
     component,
     components = {},
     componentsProps = {},
-    children,
-    action
+    focusableWhenDisabled = false
   } = props,
         other = _objectWithoutPropertiesLoose(props, _excluded);
 
@@ -58,6 +59,7 @@ const ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(pro
     getRootProps
   } = useButton(_extends({}, props, {
     component: ButtonRoot,
+    focusableWhenDisabled,
     ref: handleRef
   }));
   React.useImperativeHandle(action, () => ({
@@ -69,6 +71,7 @@ const ButtonUnstyled = /*#__PURE__*/React.forwardRef(function ButtonUnstyled(pro
 
   const ownerState = _extends({}, props, {
     active,
+    focusableWhenDisabled,
     focusVisible
   });
 
@@ -136,6 +139,12 @@ process.env.NODE_ENV !== "production" ? ButtonUnstyled.propTypes
    * @default false
    */
   disabled: PropTypes.bool,
+
+  /**
+   * If `true`, allows a disabled button to receive focus.
+   * @default false
+   */
+  focusableWhenDisabled: PropTypes.bool,
 
   /**
    * @ignore
