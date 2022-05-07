@@ -7,10 +7,10 @@ import chatOnline from "../../components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from 'react';
 import axios from "axios";
 import Search from '../SearchBar/search';
+import { Box } from '@material-ui/core';
 
 
-
-export default function Messenger()
+export default function Messenger ()
 {
   const profile = JSON.parse(localStorage.getItem('profile'))
   const userId = profile.result._id
@@ -53,6 +53,7 @@ export default function Messenger()
         console.log(err);
       }
     }
+  
     return (
   <>
   <Topbar />
@@ -99,10 +100,7 @@ export default function Messenger()
       <div className="chatOnlineWrapper"></div>
     </div>
   </div>
-  
-    
-  
-  
   </>
 );
+
 }

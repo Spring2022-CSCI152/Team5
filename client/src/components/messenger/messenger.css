@@ -55,14 +55,13 @@
   }
   
   .chatOnline {
-    flex: 3;
+    flex: 1;
   }
   
   .chatMenuWrapper,
-  .chatBoxWrapper,
-  .chatOnlineWrapper {
-    padding: 10px;
-    height: 85%;
+  .chatBoxWrapper {
+    padding: 4px;
+    height: 70%;
   }
   
 
