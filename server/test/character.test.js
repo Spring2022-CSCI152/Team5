@@ -16,8 +16,8 @@ describe("apiGetCharacter",function(){
             expect1(response.statusCode).to.be.equal(200)
             var json =  JSON.parse(response.body)
             expect1(json).to.have.keys(["char_name","stats","inventory"])
+            done()
         })
-        done()
     })
     it("Returns empty string when an incorrect id is queried",function(done){
         request(url+path+"?userId=aylmao",function(error,response,body){
@@ -30,8 +30,8 @@ describe("apiGetCharacter",function(){
         request(url+path,function(error,response,body){
             expect1(response.statusCode).to.be.equal(400)
             expect1(response.body).to.be.equal("\"Please enter userId in the query.\"")
+            done()
         })
-        done()
     })
 })
 
@@ -40,7 +40,8 @@ describe("apiUpdateCharacter",function(){
         var json = {
             "user_id":id,
             "level":"1",
-            "xp_to_next_level":"0",
+            "current_xp":"0",
+            "xp_to_next_level":"100",
             "max_hp":"10",
             "current_hp":"10",
             "gold":"10"
@@ -50,25 +51,20 @@ describe("apiUpdateCharacter",function(){
             .set("content-type","application/json").send(json).end(function(error,response,body){
                 expect1(response.statusCode).to.be.equal(200)
                 expect1(response.body.status).to.be.equal("success")
+                done()
             })
-        done()
     })
     it("Returns 400 with message, Wrong Id, when an incorrect id is sent",function(done){
         var json = {
-            "user_id":"aylmao",
-            "level":"1",
-            "xp_to_next_level":"0",
-            "max_hp":"10",
-            "current_hp":"10",
-            "gold":"10"
+            "user_id":"aylmao"
         }
         chai
             .request(url).put(path)
             .set("content-type","application/json").send(json).end(function(error,response,body){
                 expect1(response.statusCode).to.be.equal(400)
                 expect1(response.body).to.be.equal("Wrong Id")
+                done()
             })
-        done()
     })
     it("Returns 500 when nothing is sent",function(done){
         var json = {
@@ -77,10 +73,10 @@ describe("apiUpdateCharacter",function(){
             .request(url).put(path)
             .set("content-type","application/json").send(json).end(function(error,response,body){
                 expect1(response.statusCode).to.be.equal(500)
+                done()
             })
-        done()
     })
-    it("Returns 200 with message, Wrong Id, when incorrect type is sent for level",function(done){
+    it("Returns 200 with an empty character object when incorrect type is sent for level",function(done){
         var json = {
             "user_id":id,
             "level":"Hello"
@@ -90,7 +86,8 @@ describe("apiUpdateCharacter",function(){
             .set("content-type","application/json").send(json).end(function(error,response,body){
                 expect1(response.statusCode).to.be.equal(200)
                 expect1(response.body.status).to.be.equal("success")
+                expect1(response.body.character).to.deep.equal({})
+                done()
             })
-        done()
     })
 })

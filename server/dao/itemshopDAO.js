@@ -24,9 +24,13 @@ export default class ItemShopDAO {
     } = {}) {
         let query
         if (filters) {
-            if ("name" in filters) {
+            if ("name" in filters && "type" in filters) {
+                query = { "name": filters.name,
+                        "type":filters.type 
+                    }
+            } else if ("name" in filters) {
                 query = { "name": filters.name }
-            } else if ("type" in filters) {
+            } else if("type" in filters){
                 query = { "type": filters.type }
             }
         }
@@ -53,15 +57,30 @@ export default class ItemShopDAO {
         }
     }
 
-    static async addItem(name, type, cost, date) {
+    static async addItem(name, type, cost,rarity,health,attack, date) {
         try {
-            const itemDoc = {
-                name,
-                type,
-                cost,
-                date
+            var itemDoc = {}
+            if(health != null){
+                console.log("lmaoster1")
+                itemDoc = {
+                    name,
+                    type,
+                    cost,
+                    rarity,
+                    health,
+                    date
+                }
+            } else {
+                console.log("lmaoster2")
+                itemDoc = {
+                    name,
+                    type,
+                    cost,
+                    rarity,
+                    attack,
+                    date
+                }
             }
-
             await items.insertOne(itemDoc)
             const item = itemDoc
 

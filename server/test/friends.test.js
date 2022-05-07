@@ -29,7 +29,7 @@ describe("apiGetFriends",function(){
             done()
         })
     })
-    it("Returns the empty string when an incorrect id is queried",function(done){
+    it("Returns 500 with an error message when an incorrect id is queried",function(done){
         request(url+path+"?userId=lolster",function(error,response,body){
             expect1(response.statusCode).to.be.equal(500)
             var res = JSON.parse(response.body)
@@ -52,6 +52,7 @@ describe("apiGetFriends",function(){
         })
     })
 })
+
 
 describe("apiAddFriend",function(){
     it("Successfully adds the friend and returns an object of the friend",function(done){
@@ -92,13 +93,45 @@ describe("apiAddFriend",function(){
             done()
         })
     })
-    it("Returns 400 with the message, Please include user_id and friend_user_name in the body of the request., when nothing is sent",function(done){
-        var json = {
-        }
+    it("Returns 400 with the message, Please include user_id and friend_user_name in the body of the request., when only the user_id is sent",function(done){
+        var json = {"user_id":id}
         chai.request(url).post(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(400)
             expect1(response.body).to.be.equal("Please include user_id and friend_user_name in the body of the request.")
+            done()
+        })
+    })
+    it("Returns 400 with the message, Please include user_id and friend_user_name in the body of the request., when only the friend_user_name is sent",function(done){
+        var json = {"friend_user_name":"test7"}
+        chai.request(url).post(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please include user_id and friend_user_name in the body of the request.")
+            done()
+        })
+    })
+    it("Returns 400 with the message, Cannot have a user friend themself., when the friend username is same as userId's username",function(done){
+        var json = {
+            "user_id":id,
+            "friend_user_name":"test7"
+        }
+        chai.request(url).post(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Cannot have a user friend themself.")
+            done()
+        })
+    })
+    it("Returns 400 with the message, Target user is already friended with this user., when friend_user_name is already in friends list",function(done){
+        var json = {
+            "user_id":"61ad8bcccbe8a437facea52e",
+            "friend_user_name":"test7"
+        }
+        chai.request(url).post(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Target user is already friended with this user.")
             done()
         })
     })
@@ -118,8 +151,17 @@ describe("apiUpdateFriend",function(){
             done()
         })
     })
-    it("Returns a 400 error with the message,Please include user_id and friend_user_name in the body of the request., when the json is empty",function(done){
-        var json = {}
+    it("Returns a 400 error with the message,Please include user_id and friend_user_name in the body of the request., when only the userId is sent",function(done){
+        var json = {"user_id":id}
+        chai.request(url).put(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please include user_id and friend_user_name in the body of the request.")
+            done()
+        })
+    })
+    it("Returns a 400 error with the message,Please include user_id and friend_user_name in the body of the request., when only the friend_user_name is sent",function(done){
+        var json = {"friend_user_name":"lmao1"}
         chai.request(url).put(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(400)
@@ -194,8 +236,18 @@ describe("apiDeleteFriend",function(){
             done()
         })
     })
-    it("Returns a 400 message,Please include user_id and friend_user_name in the body of the request., when no user_id or friend user name is given",function(done){
-        var json ={}
+    it("Returns a 400 message,Please include user_id and friend_user_name in the body of the request., when no user_id is given",function(done){
+        var json ={"friend_user_name":"lmao1"}
+        chai
+        .request(url).delete(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please include user_id and friend_user_name in the body of the request.")
+            done()
+        })
+    })
+    it("Returns a 400 message,Please include user_id and friend_user_name in the body of the request., when no friend user name is given",function(done){
+        var json ={"user_id":id}
         chai
         .request(url).delete(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){

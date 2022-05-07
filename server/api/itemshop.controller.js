@@ -8,7 +8,8 @@ export default class ItemShopCtrl {
         let filters = {}
         if (req.query.name) {
             filters.name = req.query.name
-        } else if (req.query.type) {
+        }
+        if (req.query.type) {
             filters.type = req.query.type
         }
 
@@ -34,36 +35,62 @@ export default class ItemShopCtrl {
 
             if(!name)
             {
-                res.status(400).json("Please include name, type, and cost.")
+                console.log("bruhmoment#0")
+                res.status(400).json("Please include name, type, rarity, cost, and attack/health")
                 return
             }
-
+            const type = req.body.type
+            if(!type){
+                console.log("bruhmoment#1")
+                res.status(400).json("Please include name, type, rarity, cost, and attack/health")
+                return
+            }
             let filters = {}
             filters.name = name
+            filters.type = type
             const oldItem = await ItemShopDAO.getItems({filters})
             if (oldItem.totalNumItems > 0) {
                 res.status(400).json("Item already exists.")
                 return
             }
 
-            const type = req.body.type
             const cost = parseInt(req.body.cost, 10)
+            const rarity = parseInt(req.body.rarity)
+            const health = req.body.health
+            const attack = req.body.attack
             const date = new Date()
-
-            if(!type || !cost)
+            if((health == null && attack == null) || !type || !cost || !rarity)
             {
-                res.status(400).json("Please include name, type, and cost.")
+                console.log("bruhmoment#2:"+attack)
+                res.status(400).json("Please include name, type, rarity, cost, and attack/health")
                 return
             }
-
-            const result = await ItemShopDAO.addItem(
-                name,
-                type,
-                cost,
-                date
-            )
-            const newItem = await ItemShopDAO.getItems(filters)
-            res.json({ newItem })
+            if(attack != null){
+                const result = await ItemShopDAO.addItem(
+                    name,
+                    type,
+                    cost,
+                    rarity,
+                    null,
+                    attack,
+                    date
+                )
+                const newItem = await ItemShopDAO.getItems(filters)
+                res.json({ newItem })
+                return
+            } else {
+                const result = await ItemShopDAO.addItem(
+                    name,
+                    type,
+                    cost,
+                    rarity,
+                    health,
+                    null,
+                    date
+                )
+                const newItem = await ItemShopDAO.getItems(filters)
+                res.json({ newItem })
+            }
         } catch (e) {
             res.status(500).json({ error: e.message })
         }

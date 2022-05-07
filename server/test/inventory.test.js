@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 var expect1 = chai.expect
 
 var id = "61ad8bcccbe8a437facea52e"
-var itemId = "61a5beb822ff7f11a2571cb2"
+var itemId = "6275d379fccd40be9db5a095"
 var url = "http://localhost:5000"
 var path = '/api/v1/users/inventory/'
 
@@ -57,7 +57,7 @@ describe("apiAddItem",function(){
     it("Successfully adds item to users inventory when correct userid and item id are given in the request",function(done){
         var json = {
             "user_id":id,
-            "item_id":"61ad112a63f0cb9a2e0f06d1"
+            "item_id":itemId
         }
         chai.request(url).post(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
@@ -130,7 +130,7 @@ describe("apiDeleteItem",function(){
     it("Successfully deletes item when a correct userId and item id are given in the request",function(done){
         var json = {
             "user_id":id,
-            "item_id":"61ad112a63f0cb9a2e0f06d1"
+            "item_id":itemId
         }
         chai.request(url).delete(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){

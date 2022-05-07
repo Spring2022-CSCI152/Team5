@@ -84,6 +84,7 @@ export default class UsersCtrl {
 
                 if(!req.body.user_name || !req.body.password) {
                     res.status(400).json({ message: "Please use username and password in the body of the request" })
+                    return
                 }
                 let filters = {}
                 filters.user_name = req.body.user_name

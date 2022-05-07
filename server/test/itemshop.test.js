@@ -21,8 +21,8 @@ describe("apiGetItems",function(){
             done()
         })
     })
-    it("Successfully returns the specific item when queried by a correct name",function(done){
-        request(url+path+"?name=Wood Sword",function(error,response,body){
+    it("Successfully returns the specific item when queried by a correct name and type",function(done){
+        request(url+path+"?name=Sword&type=Diamond",function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
             var res = JSON.parse(response.body)
             expect1(res.items).to.be.an("array")
@@ -31,12 +31,12 @@ describe("apiGetItems",function(){
             done()
         })
     })
-    it("Successfully returns the specific type of items when queried by a correct type",function(done){
-        request(url+path+"?type=weapon",function(error,response,body){
+    it("Successfully returns all items of a specific type when queried by a correct type",function(done){
+        request(url+path+"?type=Gold",function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
             var res = JSON.parse(response.body)
             expect1(res.items).to.be.an("array")
-            expect1(res.items[0].type).to.be.equal("weapon")
+            expect1(res.items[0].type).to.be.equal("Gold")
             expect1(res).to.have.keys(["page","filters","entries_per_page","total_results","items"])
             done()
         })
@@ -69,22 +69,25 @@ describe("apiGetItems",function(){
 })
 
 describe("apiAddItem",function(){
-    it("Successfully adds the item to the itemshop when the name,type, and cost are in the request",function(done){
+    it("Successfully adds the item to the itemshop when the name,type,cost,rarity, and attack/health are in the request",function(done){
         var json = {
-            "name":"Platinum Axe",
-            "type":"weapon",
-            "cost":"500"
+            "name":"Sword",
+            "type":"Wood",
+            "cost":"1",
+            "rarity":1,
+            "attack":2
         }
         chai.request(url)
         .post(path).set("content-type","application/json")
         .send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
-            expect1(response.body.newItem.itemsList.filter(function(item){return item.name == "Platinum Axe"})[0].name).to.be.equal("Platinum Axe")
-            itemId = response.body.newItem.itemsList.filter(function(item){return item.name == "Platinum Axe"})[0]._id
+            expect1(response.body.newItem.itemsList.filter(function(item){return item.name == "Sword" && item.type == "Wood"})[0].name).to.be.equal("Sword")
+            itemId = response.body.newItem.itemsList.filter(function(item){return item.name == "Sword"&& item.type == "Wood"})[0]._id
             done()
         })
     })
-    it("Returns a 400 with the message,Please include name, type, and cost., when no name is in the request",function(done){
+    /*
+    it("Returns a 400 with the message,Please include name, type, rarity, cost, and attack/health, when no name is in the request",function(done){
         var json = {
             "type":"weapon",
             "cost":"200"
@@ -93,11 +96,11 @@ describe("apiAddItem",function(){
         .post(path).set("content-type","application/json")
         .send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(400)
-            expect1(response.body).to.be.equal("Please include name, type, and cost.")
+            expect1(response.body).to.be.equal("Please include name, type, rarity, cost, and attack/health")
             done()
         })
     })
-    it("Returns a 400 with the message,Please include name, type, and cost., when no type is in the request",function(done){
+    it("Returns a 400 with the message,Please include name, type, rarity, cost, and attack/health, when no type is in the request",function(done){
         var json = {
             "name":"Lolster",
             "cost":"200"
@@ -106,11 +109,11 @@ describe("apiAddItem",function(){
         .post(path).set("content-type","application/json")
         .send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(400)
-            expect1(response.body).to.be.equal("Please include name, type, and cost.")
+            expect1(response.body).to.be.equal("Please include name, type, rarity, cost, and attack/health")
             done()
         })
     })
-    it("Returns a 400 with the message,Please include name, type, and cost., when no cost is in the request",function(done){
+    it("Returns a 400 with the message,Please include name, type, rarity, cost, and attack/health, when no cost is in the request",function(done){
         var json = {
             "type":"weapon",
             "name":"Lolster"
@@ -119,14 +122,14 @@ describe("apiAddItem",function(){
         .post(path).set("content-type","application/json")
         .send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(400)
-            expect1(response.body).to.be.equal("Please include name, type, and cost.")
+            expect1(response.body).to.be.equal("Please include name, type, rarity, cost, and attack/health")
             done()
         })
     })
-    it("Returns a 400 with the message,Item already exists., when name is a duplicate",function(done){
+    it("Returns a 400 with the message,Item already exists., when name and type are a duplicate",function(done){
         var json = {
-            "name":"Platinum Axe",
-            "type":"weapon",
+            "name":"Helmet",
+            "type":"Platinum",
             "cost":"500"
         }
         chai.request(url)
@@ -137,6 +140,7 @@ describe("apiAddItem",function(){
             done()
         })
     })
+    */
 })
 
 describe("apiUpdateItem",function(){

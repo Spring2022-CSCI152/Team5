@@ -11,7 +11,6 @@ export default class CharacterCtrl {
         const user = await CharacterDAO.getCharacter({
             userId
         })
-        console.log(user.character)
         res.json(user.character)
     }
 
@@ -23,7 +22,6 @@ export default class CharacterCtrl {
                 characterInfo.char_name = req.body.char_name
             }
             if(req.body.level + 1 && !isNaN(req.body.level)) {
-                console.log("Test");
                 characterInfo.level = req.body.level
             }
             if(req.body.current_xp + 1 && !isNaN(req.body.level)) {

@@ -7,9 +7,14 @@ chai.use(chaiHttp);
 var expect1 = chai.expect
 
 var id = "61ad8bcccbe8a437facea52e"
+var taskId = ""
 var url = "http://localhost:5000"
 var path = '/api/v1/users/tasks/'
 
+
+//Tests to add:
+//Query with correct UserId and taskId
+//Query with correct UserId and incorrect taskId
 describe("apiGetTasks",function(){
     it("Returns the user's list of tasks when queried by a correct userId",function(done){
         request(url+path+"?userId="+id,function(error,response,body){
@@ -61,11 +66,22 @@ describe("apiAddTask",function(){
         .set("content-type","application/json").send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
             expect1(response.body.status).to.be.equal("success")
+            taskId = response.body.task._id
             done()
         })
     })
-    it("Returns a 400 with the message,Please include user_id and task_name in the body of the request., when an empty json is sent",function(done){
-        var json = {}
+    it("Returns a 400 with the message,Please include user_id and task_name in the body of the request., when no taskName is sent",function(done){
+        var json = {"user_id":id}
+        chai
+        .request(url).post(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please include user_id and task_name in the body of the request.")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Please include user_id and task_name in the body of the request., when no user_id is sent",function(done){
+        var json = {"task_name":"lolsterlol"}
         chai
         .request(url).post(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
@@ -83,18 +99,6 @@ describe("apiAddTask",function(){
         .request(url).post(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(500)
-            done()
-        })
-    })
-    it("Returns a 400 when no taskName or task id is given",function(done){
-        var json = {
-            "user_id":id
-        }
-        chai
-        .request(url).post(path)
-        .set("content-type","application/json").send(json).end(function(error,response,body){
-            expect1(response.statusCode).to.be.equal(400)
-            expect1(response.body).to.be.equal("Please include user_id and task_name in the body of the request.")
             done()
         })
     })
@@ -128,6 +132,20 @@ describe("apiUpdateTask",function(){
             done()
         })
     })
+    it("Returns successfully when a correct user_id, new task name, and old task name are given the put request",function(done){
+        var json = {
+            "user_id":id,
+            "task_id":taskId,
+            "new_task_name":"lmaoster1"
+        }
+        chai
+        .request(url).put(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(200)
+            expect1(response.body.status).to.be.equal("success")
+            done()
+        })
+    })
     it("Returns a 400 with the message,Please include user_id and either task_id or old_task_name in the body of the request., when user_id is not given",function(done){
         var json = {
             "old_task_name":"lolsterlol",
@@ -141,7 +159,7 @@ describe("apiUpdateTask",function(){
             done()
         })
     })
-    it("Returns a 400 with the message,Please include user_id and either task_id or old_task_name in the body of the request., when old_task_name is not given",function(done){
+    it("Returns a 400 with the message,Please include user_id and either task_id or old_task_name in the body of the request., when old_task_name or task_id is not given",function(done){
         var json = {
             "user_id":id,
             "new_task_name":"lmaoster"
@@ -195,6 +213,20 @@ describe("apiUpdateTask",function(){
             done()
         })
     })
+    it("Returns a 400 with the message,Target task could not be found., when the task_id does not exist",function(done){
+        var json = {
+            "user_id":id,
+            "task_id":"bruh",
+            "new_task_name":"lolsterlol"
+        }
+        chai
+        .request(url).put(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Target task could not be found.")
+            done()
+        })
+    })
     it("Returns a 500  when the user_id does not exist",function(done){
         var json = {
             "user_id":515,
@@ -211,10 +243,18 @@ describe("apiUpdateTask",function(){
 })
 
 describe("apiDeleteTask",function(){
-    it("Successfuly deletes a task when user id and task name are given in the delete request",function(done){
-        var json = {
-            "user_id":id,
-            "task_name":"lmaoster"
+    it("Successfuly deletes a task when user id and task name/task_id are given in the delete request",function(done){
+        var json = {}
+        if(Math.random()){
+            json = {
+                "user_id":id,
+                "task_name":"lmaoster1"
+            }
+        } else {
+            json = {
+                "user_id":id,
+                "task_id":taskId
+            }
         }
         chai
         .request(url).delete(path)
@@ -227,6 +267,31 @@ describe("apiDeleteTask",function(){
     it("Returns a 400 with the message,Please include user_id and either task_id or task_name in the body of the request., when the user_id is not present in the request",function(done){
         var json = {
             "task_name":"lmaoster"
+        }
+        chai
+        .request(url).delete(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please include user_id and either task_id or task_name in the body of the request.")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Please include user_id and either task_id or task_name in the body of the request., when the user_id is not present in the request",function(done){
+        var json = {
+            "task_id":taskId
+        }
+        chai
+        .request(url).delete(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Please include user_id and either task_id or task_name in the body of the request.")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Please include user_id and either task_id or task_name in the body of the request., when the user_id is not present in the request",function(done){
+        var json = {
+            "task_name":"lmaoster",
+            "task_id":taskId
         }
         chai
         .request(url).delete(path)
@@ -252,6 +317,19 @@ describe("apiDeleteTask",function(){
         var json = {
             "user_id":id,
             "task_name":"bruhlol"
+        }
+        chai
+        .request(url).delete(path)
+        .set("content-type","application/json").send(json).end(function(error,response,body){
+            expect1(response.statusCode).to.be.equal(400)
+            expect1(response.body).to.be.equal("Target task could not be found.")
+            done()
+        })
+    })
+    it("Returns a 400 with the message,Target task could not be found., when an incorrect task_id is given",function(done){
+        var json = {
+            "user_id":id,
+            "task_id":"bruhlol"
         }
         chai
         .request(url).delete(path)
