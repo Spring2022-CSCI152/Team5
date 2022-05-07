@@ -19,8 +19,20 @@ export default function Conversation({conversation, currentUserId,})
     //console.log(friendId)
       const getUser = async () => {
         try {
-        const res = await axios("/users?userId=" + friendId);
-        setUser(res.data);
+        axios.get("http://localhost:5000/api/v1/users/friends",{
+          params: {
+            userId: userId
+          }
+        }).then(res =>{
+           const far = res.data;
+            far.friends.forEach(f =>{
+              if(f._id === friendId){
+                setUser(f);
+              }
+            })
+            
+            
+        })
       } catch (err){
         console.log(err)
       }
@@ -30,7 +42,7 @@ export default function Conversation({conversation, currentUserId,})
   return(
     <div className="conversation">
       <img className = "conversationImg" src="https://www.derekyu.com/makegames/images/pixel/orc07.png" alt=""/>
-      <span className="conversationName">{user?.username}</span>
+      <span className="conversationName">{user?.user_name}</span>
     </div>
 
 
