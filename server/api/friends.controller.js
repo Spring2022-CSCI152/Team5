@@ -102,7 +102,8 @@ export default class FriendsCtrl {
             user.friends_list.num_friends = user.friends_list.num_friends + 1
 
             const newFriendsList = user.friends_list
-
+                //create convo for user for messaging chat
+            await FriendsDAO.createConvoDB(userId,friend._id.toString())
             const response = await FriendsDAO.updateUsersFriends(userId, newFriendsList)
 
             res.json({ friend: friendInfo, status: "success", response })
