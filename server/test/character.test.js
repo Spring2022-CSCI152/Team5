@@ -6,7 +6,7 @@ import request from "request"
 chai.use(chaiHttp);
 var expect1 = chai.expect
 
-var id = "61a707daaa6b7d4a2a8b87c3"
+var id = "62783c09206b6f30e8135ac3"
 var url = "http://localhost:5000"
 var path = '/api/v1/users/character/'
 
@@ -15,7 +15,7 @@ describe("apiGetCharacter",function(){
         request(url+path+"?userId="+id,function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
             var json =  JSON.parse(response.body)
-            expect1(json).to.have.keys(["char_name","stats","inventory"])
+            expect1(json).to.have.keys(["char_name","stats","inventory","equiped"])
             done()
         })
     })
@@ -44,7 +44,11 @@ describe("apiUpdateCharacter",function(){
             "xp_to_next_level":"100",
             "max_hp":"10",
             "current_hp":"10",
-            "gold":"10"
+            "gold":"10",
+            "equip":{
+                "type":"Bronze",
+                "name":"Shield"
+            }
         }
         chai
             .request(url).put(path)

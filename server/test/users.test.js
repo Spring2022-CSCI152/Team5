@@ -13,19 +13,19 @@ var path = '/api/v1/users/'
 
 describe("apiGetUsers", function() {
     it("Returns user with same user_name when queryed with user_name", function(done){
-        request(url+path+"?userName=John76",function(error,response,body) {
+        request(url+path+"?userName=brother17",function(error,response,body) {
             expect1(response.statusCode).to.equal(200)
             var json = JSON.parse(response.body)
-            expect1(json.users[0]["user_name"]).to.equal("John76")
+            expect1(json.users[0]["user_name"]).to.equal("brother17")
             done()
         })
 
     })
     it("Returns user with same _id when queryed by id",function(done){
-        request(url+path+"?id=61a707daaa6b7d4a2a8b87c3",function(error,response,body) {
+        request(url+path+"?id=62783c09206b6f30e8135ac3",function(error,response,body) {
             expect1(response.statusCode).to.equal(200)
             var json = JSON.parse(response.body)
-            expect1(json.users[0]["_id"]).to.equal("61a707daaa6b7d4a2a8b87c3")
+            expect1(json.users[0]["_id"]).to.equal("62783c09206b6f30e8135ac3")
             done()
         }) 
     })
@@ -92,10 +92,10 @@ describe("apiGetUsers", function() {
         })
     })
     it("Returns user with same user_name when queryed with user_name and an incorrect id", function(done){
-        request(url+path+"?userName=John76&id=lolster",function(error,response,body) {
+        request(url+path+"?userName=brother17&id=lolster",function(error,response,body) {
             expect1(response.statusCode).to.equal(200)
             var json = JSON.parse(response.body)
-            expect1(json.users[0]["user_name"]).to.equal("John76")
+            expect1(json.users[0]["user_name"]).to.equal("brother17")
             done()
         })
 
@@ -104,19 +104,19 @@ describe("apiGetUsers", function() {
 
 describe("apiAddUser",function() {
     it("Returns the new users token when they are added if they are a new user, else it says username taken",function(done){
-        var requestStr = {"user_name":"brother17","password":"aybruh1","char_name":"lmaoster"}
+        var requestStr = {"user_name":"lmao1","password":"aybruh1","char_name":"lmaoster"}
         chai
             .request(url).post('/api/v1/users')
             .set('content-type',"application/json").send(requestStr).end(function(error,response,body){
                 expect1(response.statusCode).to.equal(200)
-                expect1(response.body.result.user_name).to.be.equal(username)
+                expect1(response.body.result.user_name).to.be.equal("lmao1")    
                 id = response.body.result._id
                 done()
             })
     })
     it("Returns a 400 with the message, Username already taken., when the username given is already in the database",function(done){
         var request = {
-            "user_name":"mattyhatch",
+            "user_name":"brother17",
             "password":"lolster",
             "char_name":"bruh"
         }
@@ -176,17 +176,17 @@ describe("apiAddUser",function() {
 
 describe("apiUpdateUser",function(){
     it("Successfully authorizes the user when correct username and password combination are entered with auth set to 1",function(done){
-        var request =  {user_name:"aylmao90",password:"aybruh1",auth:"1"}
+        var request =  {user_name:"brother17",password:"aybruh1",auth:"1"}
         chai
             .request(url).put('/api/v1/users')
             .set("content-type","application/json").send(request).end(function(error,response,body){
                 expect1(response.statusCode).to.equal(200)
-                expect1(response.body.result.user_name).to.be.equal("aylmao90")
+                expect1(response.body.result.user_name).to.be.equal("brother17")
                 done()
             })
     })
     it("Returns 400 with message, Please use username and password in the body of the request, when no password is given",function(done){
-        var request =  {user_name:"aylmao90",auth:"1"}
+        var request =  {user_name:"brother17",auth:"1"}
         chai
             .request(url).put('/api/v1/users')
             .set("content-type","application/json").send(request).end(function(error,response,body){
@@ -206,7 +206,7 @@ describe("apiUpdateUser",function(){
             })
     })
     it("Returns 400 with message, Invalid credentials, when incorrect credentials are used",function(done){
-        var request =  {"user_name":"aylmao35","password":"aybru","auth":"1"}
+        var request =  {"user_name":"brother17","password":"aybru","auth":"1"}
         chai
             .request(url).put('/api/v1/users')
             .set("content-type","application/json").send(request).end(function(error,response,body){

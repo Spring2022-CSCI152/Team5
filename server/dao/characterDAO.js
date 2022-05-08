@@ -59,6 +59,21 @@ export default class CharacterDAO {
                 if(characterInfo.gold + 1) {
                     tempChar.stats.gold = characterInfo.gold
                 }
+                if(characterInfo.equip){
+                    let result = tempChar.inventory.filter(function(item){return item.name == characterInfo.name && item.type == characterInfo.type})
+                    if(result.length == 1){
+                        let result1 = tempChar.equiped.filter(function(item){return item.name == characterInfo.name && item.type == characterInfo.type})
+                        if(result1.length == 0){
+                            tempChar.equiped.push(result[0])
+                        } 
+                    }
+                } else {
+                    let result = tempChar.equiped.filter(function(item){return item.name == characterInfo.name && item.type == characterInfo.type})
+                    if(result.length == 1){
+                        console.log("lmaoster1")
+                        tempChar.equiped = tempChar.equiped.filter(function(item){return item.name != characterInfo.name && item.type != characterInfo.type})
+                    }
+                }
                 let response = await users.updateOne(
                     { _id: ObjectId(userId) },
                     { $set: { character: tempChar } }

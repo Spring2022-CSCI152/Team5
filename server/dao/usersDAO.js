@@ -72,7 +72,8 @@ export default class UsersDAO {
                         current_hp: 10,
                         gold: 0
                     },
-                    inventory: []
+                    inventory: [],
+                    equiped: []
                 },
                 tasks: [],
                 date_created: date

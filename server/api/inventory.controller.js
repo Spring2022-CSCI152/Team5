@@ -23,11 +23,11 @@ export default class InventoryCtrl {
             let totalNumItems = inventory.length
             let response
 
-            if (req.query.name) {
-                let name = req.query.name
+            if (req.query.item_id) {
+                let itemId = req.query.item_id
                 for (var i = 0; i < inventory.length; i++)
                 {
-                    if(inventory[i].name == name)
+                    if(inventory[i]._id == itemId)
                     {
                         response = {
                             item: inventory[i]
@@ -44,7 +44,7 @@ export default class InventoryCtrl {
             if(response){
                 res.json(response)
             } else {
-                res.status(400).json("Please query with a correct item name")
+                res.status(400).json("Please query with a correct item id")
             }
         } catch (e) {
             res.status(500).json({ error: e.message })

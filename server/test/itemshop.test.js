@@ -6,7 +6,6 @@ import request from "request"
 chai.use(chaiHttp);
 var expect1 = chai.expect
 
-var id = "61ad8bcccbe8a437facea52e"
 var itemId = ""
 var url = "http://localhost:5000"
 var path = '/api/v1/itemshop/'

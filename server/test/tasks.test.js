@@ -6,7 +6,7 @@ import request from "request"
 chai.use(chaiHttp);
 var expect1 = chai.expect
 
-var id = "61ad8bcccbe8a437facea52e"
+var id = "62783c09206b6f30e8135ac3"
 var taskId = ""
 var url = "http://localhost:5000"
 var path = '/api/v1/users/tasks/'
@@ -21,7 +21,6 @@ describe("apiGetTasks",function(){
             expect1(response.statusCode).to.be.equal(200)
             var res = JSON.parse(response.body)
             expect1(res.tasks).to.be.an("array")
-            expect1(res.num_tasks).to.be.equal(2)
             done()
         })
     })

@@ -6,7 +6,7 @@ import request from "request"
 chai.use(chaiHttp);
 var expect1 = chai.expect
 
-var id = "61ad754ace286ba11f98d240"
+var id = "62783c09206b6f30e8135ac3"
 var url = "http://localhost:5000"
 var path = '/api/v1/users/friends/'
 
@@ -22,10 +22,10 @@ describe("apiGetFriends",function(){
         })
     })
     it("Returns the specific friend when queryed by userId and friendUserName",function(done){
-        request(url+path+"?userId="+id+"&friendUserName=gamer",function(error,response,body){
+        request(url+path+"?userId="+id+"&friendUserName=brother18",function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
             var res = JSON.parse(response.body)
-            expect1(res.friend.user_name).to.be.equal("gamer")
+            expect1(res.friend.user_name).to.be.equal("brother18")
             done()
         })
     })
@@ -58,21 +58,21 @@ describe("apiAddFriend",function(){
     it("Successfully adds the friend and returns an object of the friend",function(done){
         var json = {
             "user_id":id,
-            "friend_user_name":"lmao1"
+            "friend_user_name":"lolsterlol1"
         }
         chai
         .request(url).post(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
             expect1(response.body.status).to.be.equal("success")
-            expect1(response.body.friend.user_name).to.be.equal("lmao1")
+            expect1(response.body.friend.user_name).to.be.equal("lolsterlol1")
             done()
         })
     })
     it("Returns a 400 error with the message, Target user could not be found, when an incorrect userId is sent",function(done){
         var json = {
             "user_id":415,
-            "friend_user_name":"lmao1"
+            "friend_user_name":"lolsterlol1"
         }
         chai.request(url).post(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
@@ -114,7 +114,7 @@ describe("apiAddFriend",function(){
     it("Returns 400 with the message, Cannot have a user friend themself., when the friend username is same as userId's username",function(done){
         var json = {
             "user_id":id,
-            "friend_user_name":"test7"
+            "friend_user_name":"brother17"
         }
         chai.request(url).post(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
@@ -125,8 +125,8 @@ describe("apiAddFriend",function(){
     })
     it("Returns 400 with the message, Target user is already friended with this user., when friend_user_name is already in friends list",function(done){
         var json = {
-            "user_id":"61ad8bcccbe8a437facea52e",
-            "friend_user_name":"test7"
+            "user_id":id,
+            "friend_user_name":"brother18"
         }
         chai.request(url).post(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
@@ -141,13 +141,13 @@ describe("apiUpdateFriend",function(){
     it("Successfully returns the updated friend info when correct userId and friend user name are sent",function(done){
         var json = {
             "user_id":id,
-            "friend_user_name":"lmao1"
+            "friend_user_name":"lolsterlol1"
         }
         chai.request(url).put(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(200)
             expect1(response.body.status).to.be.equal("success")
-            expect1(response.body.friend.user_name).to.be.equal("lmao1")
+            expect1(response.body.friend.user_name).to.be.equal("lolsterlol1")
             done()
         })
     })
@@ -161,7 +161,7 @@ describe("apiUpdateFriend",function(){
         })
     })
     it("Returns a 400 error with the message,Please include user_id and friend_user_name in the body of the request., when only the friend_user_name is sent",function(done){
-        var json = {"friend_user_name":"lmao1"}
+        var json = {"friend_user_name":"lolsterlol1"}
         chai.request(url).put(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
             expect1(response.statusCode).to.be.equal(400)
@@ -172,7 +172,7 @@ describe("apiUpdateFriend",function(){
     it("Returns a 400 error with the message,Target user could not be found., when the userId is incorrect",function(done){
         var json = {
             "user_id":415,
-            "friend_user_name":"lmao1"
+            "friend_user_name":"lolsterlol1"
         }
         chai.request(url).put(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
@@ -184,7 +184,7 @@ describe("apiUpdateFriend",function(){
     it("Returns a 400 error with the message,Target friend could not be found., when the friend user name is incorrect",function(done){
         var json = {
             "user_id":id,
-            "friend_user_name":"lolsterlol"
+            "friend_user_name":"lolsterlol15"
         }
         chai.request(url).put(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){
@@ -200,7 +200,7 @@ describe("apiDeleteFriend",function(){
     it("Succesfully deletes the friend from your friend list",function(done){
         var json ={
             "user_id":id,
-            "friend_user_name":"lmao1"
+            "friend_user_name":"lolsterlol1"
         }
         chai
         .request(url).delete(path)
@@ -237,7 +237,7 @@ describe("apiDeleteFriend",function(){
         })
     })
     it("Returns a 400 message,Please include user_id and friend_user_name in the body of the request., when no user_id is given",function(done){
-        var json ={"friend_user_name":"lmao1"}
+        var json ={"friend_user_name":"lolsterlol1"}
         chai
         .request(url).delete(path)
         .set("content-type","application/json").send(json).end(function(error,response,body){

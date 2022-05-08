@@ -39,6 +39,16 @@ export default class CharacterCtrl {
             if(req.body.gold + 1 && !isNaN(req.body.level)) {
                 characterInfo.gold = req.body.gold
             }
+            if(req.body.equip){
+                characterInfo.name = req.body.equip.name
+                characterInfo.type = req.body.equip.type
+                characterInfo.equip = true
+            }
+            if(req.body.unequip){
+                characterInfo.name = req.body.unequip.name
+                characterInfo.type = req.body.unequip.type
+                characterInfo.equip = false
+            }
             const user = await CharacterDAO.getCharacter({
                 userId
             })
