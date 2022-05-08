@@ -5,6 +5,7 @@ import Conversation from  "../../components/conversations/Conversation";
 import Message from "../../components/message/Message";
 import chatOnline from "../../components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from 'react';
+import Search from '../SearchBar/search';
 import axios from "axios";
 import {io} from "socket.io-client"
 
@@ -101,10 +102,12 @@ const [arrivalMessage, setArrivalMessage] = useState(null)
     return (
   <>
   <Topbar />
+  <div  style={{"font-family": "San Francisco","font-weight": "900","font-size": "50px"}} className = "titleTop">Messages</div>
+  <Search />
+  { <h7> ────────  Your Conversations  ────────</h7> }
   <div className="messenger">
     <div className="chatMenu">
       <div className="chatMenuWrapper">
-        <input placeholder="Search Friend" className="chatMenuInput" />
         {conversations.map((c)=>(
           <div onClick={()=> setCurrentChat(c)}>
           <Conversation conversation={c} currentUserId={userId}/>

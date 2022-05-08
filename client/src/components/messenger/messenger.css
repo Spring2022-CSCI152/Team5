@@ -55,14 +55,17 @@
   }
   
   .chatOnline {
-    flex: 3;
+    flex: 1;
   }
   
   .chatMenuWrapper,
-  .chatBoxWrapper,
-  .chatOnlineWrapper {
+  .chatBoxWrapper {
     padding: 10px;
-    height: 100%;
+    height: 75%;
+  }
+
+  .chatOnlineWrapper{
+    padding:0px;
   }
   
   .noConversationText {
