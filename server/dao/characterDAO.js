@@ -70,7 +70,6 @@ export default class CharacterDAO {
                 } else {
                     let result = tempChar.equiped.filter(function(item){return item.name == characterInfo.name && item.type == characterInfo.type})
                     if(result.length == 1){
-                        console.log("lmaoster1")
                         tempChar.equiped = tempChar.equiped.filter(function(item){return item.name != characterInfo.name && item.type != characterInfo.type})
                     }
                 }

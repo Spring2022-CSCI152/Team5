@@ -44,9 +44,21 @@ describe("apiUpdateCharacter",function(){
             "xp_to_next_level":"100",
             "max_hp":"10",
             "current_hp":"10",
-            "gold":"10",
+            "gold":"10"
+        }
+        chai
+            .request(url).put(path)
+            .set("content-type","application/json").send(json).end(function(error,response,body){
+                expect1(response.statusCode).to.be.equal(200)
+                expect1(response.body.status).to.be.equal("success")
+                done()
+            })
+    })
+    it("Successfully equips the item whe nsent the correct user_id and equip object with the item name and type to equip",function(done){
+        var json = {
+            "user_id":id,
             "equip":{
-                "type":"Bronze",
+                "type":"Diamond",
                 "name":"Shield"
             }
         }
@@ -55,6 +67,26 @@ describe("apiUpdateCharacter",function(){
             .set("content-type","application/json").send(json).end(function(error,response,body){
                 expect1(response.statusCode).to.be.equal(200)
                 expect1(response.body.status).to.be.equal("success")
+                expect1(response.body.character.type).to.be.equal("Diamond")
+                expect1(response.body.character.name).to.be.equal("Shield")
+                done()
+            })
+    })
+    it("Successfully unequips the item whe nsent the correct user_id and equip object with the item name and type to equip",function(done){
+        var json = {
+            "user_id":id,
+            "unequip":{
+                "type":"Diamond",
+                "name":"Shield"
+            }
+        }
+        chai
+            .request(url).put(path)
+            .set("content-type","application/json").send(json).end(function(error,response,body){
+                expect1(response.statusCode).to.be.equal(200)
+                expect1(response.body.status).to.be.equal("success")
+                expect1(response.body.character.type).to.be.equal("Diamond")
+                expect1(response.body.character.name).to.be.equal("Shield")
                 done()
             })
     })
